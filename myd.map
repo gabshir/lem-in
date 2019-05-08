@@ -1,0 +1,21 @@
+2
+##start
+start 2 0
+##end
+finish 2 6
+1 4 2
+2 4 4
+3 0 2
+4 1 7
+start-1
+start-2
+start-3
+1-start
+1-4
+2-start
+2-4
+3-start
+3-finish
+4-1
+4-2
+4-finish
