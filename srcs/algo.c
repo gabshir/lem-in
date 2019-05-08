@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/08 13:54:27 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/08 15:23:13 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,6 @@ void	ft_konnekt(t_list **links, size_t i)
 		temp->content_size = i;
 	}
 }
-/*
-int otsew(t_list *way, t_list *new, size_t i) // way - пути, new - добавляемые пути, в какой группе комнат искать
-{
-	t_list *temp; // распоковка путей
-	t_room *roomw;
-	t_room *roomn;
-	t_list *pred;
-
-	pred = new->next;
-	new = new->next;
-
-	while (way && way->content_size != i)
-		way = way->next;
-	while (way)
-	{
-		temp = way->content;
-		temp = temp->next;
-		roomw = temp->content;
-		roomn = new->content;
-		while (roomw->n != 0)
-		{
-			if (roomn == roomw)
-				return (1);
-			new = new->next;
-			roomw = new->content;
-		}
-		new = pred;
-		way = way->next;
-	}
-	return (0);
-}
-*/
 
 void	freeway(t_list **way)
 {
@@ -97,6 +65,7 @@ void	freeway(t_list **way)
 		pred = temp;
 		temp = temp->next;
 	}
+	ft_lstdel((t_list**)&temp->content, NULL);
 	free(temp);
 	temp = NULL;
 	pred->next = temp;
@@ -188,15 +157,19 @@ int	ft_freeroom(t_room *room)
 							read3 = links3->content;
 							if (read1->n == read3->n)
 							{
+								links2 = links2->next;
+								links3 = links3->next;
 								ft_freedown(&read2->links, read3->n);
 								ft_freedown(&read3->links, read2->n);
 								f = 1;
 							}
 						}
-						links3 = links3->next;
+						if (links3)
+							links3 = links3->next;
 					}
 				}
-				links2 = links2->next;
+				if (links2)
+					links2 = links2->next;
 			}
 		}
 		links1 = links1->next;

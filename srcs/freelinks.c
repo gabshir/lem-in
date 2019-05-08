@@ -24,7 +24,7 @@ void	ft_freedown(t_list **links, int n)
 	if (read->n == n)
 	{
 		next = temp->next;
-	//	free(temp);
+		free(temp);
 		temp = NULL;
 		*links = next;
 		return ;
@@ -36,7 +36,7 @@ void	ft_freedown(t_list **links, int n)
 		if (read->n == n)
 		{
 			next = temp->next;
-		//	free(temp);
+			free(temp);
 			temp = NULL;
 			prew->next = next;
 			return ;
