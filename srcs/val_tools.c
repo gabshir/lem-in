@@ -71,7 +71,7 @@ void	check_name_duplicates(t_map *map)
 	{
 		while (j < map->room_q)
 		{
-			if (!ft_strcmp(map->rooms[i]->name, map->rooms[i + j]->name))
+			if (ft_strcmp(map->rooms[i]->name, map->rooms[i + j]->name) == 0)
 			{
 				duplicates++;
 				ft_printf(ER "Found dupl. for room %s\n", map->rooms[i]->name);

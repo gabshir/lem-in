@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/08 15:23:13 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/11 09:52:57 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ void	ft_blok(t_list **links, t_room *test)
 		way = way->next;
 		read = way->content;
 	}
-//	ft_printf("chto %s\n", read->name);
 	way->content_size = 0;
 }
 
-int 	ft_cheak(t_list *links, int gl)
+int 	ft_cheak(t_list *links, int gl, int f)
 {
 	t_room *read;
+
+	if (f == 1)
+		return (0);
 	while (links)
 	{
 		read = links->content;
@@ -43,34 +45,37 @@ int 	ft_cheak(t_list *links, int gl)
 
 void	ft_konnekt(t_list **links, size_t i)
 {
-	{
-		t_list	*temp;
+	t_list	*temp;
 
-		temp = *links;
-		while (temp->next)
-			temp = temp->next;
-		temp->content_size = i;
-	}
+	temp = *links;
+	while (temp->next)
+		temp = temp->next;
+	temp->content_size = i;
 }
 
 void	freeway(t_list **way)
 {
+	t_list *rfree;
 	t_list *temp;
-	t_list *pred;
+	t_list *freenow;
 
 	temp = *way;
-	pred = *way;
-	while (temp->next)
+	while (temp)
 	{
-		pred = temp;
+		rfree = temp->content;
+		while (rfree)
+		{
+			freenow = rfree->content;
+			ft_lstdel((t_list **) &freenow, NULL);
+			rfree = rfree->next;
+		}
 		temp = temp->next;
 	}
-	ft_lstdel((t_list**)&temp->content, NULL);
-	free(temp);
-	temp = NULL;
-	pred->next = temp;
+	free(*way);
+	*way = NULL;
 }
-void	ft_printfway(t_room	*end, t_list **way, size_t i)
+
+static void	ft_saveway(t_room *end, t_list **way, int f)
 {
 	t_room	*read;
 	int 	d;
@@ -80,38 +85,30 @@ void	ft_printfway(t_room	*end, t_list **way, size_t i)
 
 	links = end->links;
 	pred = end;
-//	ft_printf("###############\n");
-
 	end->isp = 1;
 	d = end->gl;
 	waynow = NULL;
-//	ft_listaddglubina(&waynow, ft_lstnew_ptr(end));
-	ft_lstpush(&waynow, ft_lstnew_ptr(end));
+	ft_lstadd(&waynow, ft_lstnew_ptr(end));
 	while (links)
 	{
 		read = links->content;
-		if (read->gl == d - 1 && ft_cheak(read->links, d) == 0)
+		if (read->gl == d - 1 && ft_cheak(read->links, d, f) == 0)
 		{
 			read->isp = 1;
-//			ft_listaddglubina(&waynow, ft_lstnew_ptr(read));
-			ft_lstpush(&waynow, ft_lstnew_ptr(read));
-	//		ft_printf("way = %s\n", read->name);
+			ft_lstadd(&waynow, ft_lstnew_ptr(read));
 			d--;
 			ft_blok(&read->links, pred);
 			pred = read;
 			links = read->links;
 			if (d == 0)
 			{
-//				ft_listaddglubina(way, ft_lstnew_ptr(waynow));
 				ft_lstpush(way, ft_lstnew_ptr(waynow));
-				ft_konnekt(way, i);
 				break;
 			}
 		}
 		else
 			links = links->next;
 	}
-//	ft_printf("way = %s\n", read->name);
 }
 
 void	ft_restor(t_list **links)
@@ -126,89 +123,134 @@ void	ft_restor(t_list **links)
 	}
 }
 
-int	ft_freeroom(t_room *room)
+static void restisp(t_list **way)
 {
-	int f;
-	t_list *links1;
-	t_list *links2;
-	t_list *links3;
-	t_room *read1;
-	t_room *read2;
-	t_room *read3;
+	t_list *temp;
+	t_list *combway;
+	t_list *links;
+	t_room *read;
 
-	f = 0;
-	links1 = room->links;
-	while (links1) // линки текущей комнаты
+	temp = *way;
+	while (temp->next)
+		temp = temp->next;
+	combway = temp->content;
+	while (combway)
 	{
-		if (links1->content_size == 0) // найдена заблокированная комната
+		links = combway->content;
+		while (links)
 		{
-			read1 = links1->content;
-			links2 = read1->links;
-			while (links2) // линки заблокированной комнаты
-			{
-				if (links2->content_size == 0)
-				{
-					read2 = links2->content;
-					links3 = read2->links;
-					while (links3)
-					{
-						if (links3->content_size == 0)
-						{
-							read3 = links3->content;
-							if (read1->n == read3->n)
-							{
-								links2 = links2->next;
-								links3 = links3->next;
-								ft_freedown(&read2->links, read3->n);
-								ft_freedown(&read3->links, read2->n);
-								f = 1;
-							}
-						}
-						if (links3)
-							links3 = links3->next;
-					}
-				}
-				if (links2)
-					links2 = links2->next;
-			}
+			read = links->content;
+			read->isp = 0;
+			read->f = 0;
+			links = links->next;
 		}
-		links1 = links1->next;
+		combway = combway->next;
+	}
+}
+
+static int path_analysis(t_list **combo)
+{
+	t_list *last_combo;
+	t_list *read_combo;
+	t_list *way;
+	t_room *readt;
+	t_room *reads;
+	t_list *links;
+	t_room *temp;
+	int f;
+
+	last_combo = *combo;
+	f = 0;
+	while(last_combo->next)
+		last_combo = last_combo->next; // ищем последнюю комнату комбинаций
+	read_combo = last_combo->content; // получаем список комбинаций
+	while (read_combo)
+	{
+		way = read_combo->content; //  переходим к конкретной комбинации
+		while (way->next)
+		{
+			readt = way->content; // текущий элемент
+			reads = way->next->content; // следующий
+			links = reads->links;
+			while (links) // ищем текущей элемент
+			{
+				temp = links->content;
+				if (readt->n == temp->n && links->content_size == 8) // нашли совпададение но оно не блокированно
+					break ;
+				else if (readt->n == temp->n)
+				{
+					ft_freedown(&readt->links, reads->n);
+					ft_freedown(&reads->links, readt->n);
+					f = 1;
+					//return (1);
+					links = links->next;
+				}
+				else
+					links = links->next;
+			}
+			way = way->next;
+		}
+		read_combo = read_combo->next;
 	}
 	return (f);
 }
 
-void	way(t_map *map)
+void	restornap(t_list **way)
+{
+	t_list *lastcomb;
+	t_list *linkcombo;
+	t_list *waynow;
+	t_room *read;
+
+	lastcomb = *way;
+	while(lastcomb->next)
+		lastcomb = lastcomb->next;
+	linkcombo = lastcomb->content;
+	while (linkcombo)
+	{
+		waynow = linkcombo->content;
+		while (waynow)
+		{
+			read = waynow->content;
+			ft_restor(&read->links);
+			waynow = waynow->next;
+		}
+		linkcombo = linkcombo->next;
+	}
+}
+
+void	way(t_map *map, int l)
 {
 	int i;
-	int k;
-	size_t l;
+	t_list *combnow;
 
-	k = 0;
-	l = 0;
-	while (k != 0 || glubina(map) != 0)
+	combnow = NULL;
+	i = 0;
+	while (shirina(map) == 1)
 	{
-		i = 0;
-		ft_printfway(&map->end, &map->way, l);
-		while (map->rooms[i])
-		{
-			map->rooms[i]->f = 0;
-			map->rooms[i]->gl = -1;
-			map->rooms[i]->isp = 0;
-			k = ft_freeroom(map->rooms[i]) + k;
-			i++;
-		}
-		if (k > 0)
-		{
-			freeway(&map->way);
-			i = 0;
-			l++;
-		//	ft_printf("!!!!!!!!!!!!!!!!!!!!!\n");
-			while (map->rooms[i])
-			{
-				ft_restor(&map->rooms[i]->links);
-				i++;
-			}
-			k = 0;
-		}
+		ft_saveway(&map->end, &combnow, 0);
+		restorroom(map);
+	}
+	ft_lstpush(&map->way, ft_lstnew_ptr(combnow));
+	ft_konnekt(&map->way, l);
+	combnow = NULL;
+	restisp(&map->way);
+	restorroom(map);
+	while (shirinablok(map) == 1 && i == 0)
+	{
+		ft_saveway(&map->end, &combnow, 1);
+		restorroom(map);
+		i = path_analysis(&map->way);
+	}
+	ft_lstpush(&map->cut, ft_lstnew_ptr(combnow));
+	restisp(&map->cut);
+	restornap(&map->way);
+	restornap(&map->cut);
+	freeway(&map->cut);
+	restorroom(map);
+	if (i == 1)
+	{
+		l = l + 1;
+		way(map, l);
 	}
 }

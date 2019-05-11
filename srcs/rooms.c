@@ -85,7 +85,6 @@ void	start_init(t_map *map, char *line, int fd)
 			map->start.links = NULL;
 			map->start.f = 1;
 			map->start.isp = 0;
-			map->start.way = NULL;
 			room_name_and_coords(map, &map->start, line);
 			map->room_q++;
 		}
@@ -113,7 +112,6 @@ void	end_init(t_map *map, char *line, int fd)
 			map->end.links = NULL;
 			map->end.f = 0;
 			map->end.isp = 0;
-			map->end.way = NULL;
 			room_name_and_coords(map, &map->end, line);
 			map->room_q++;
 		}
@@ -143,7 +141,6 @@ t_room	*create_room(t_map *map, char *line)
 	new->f = -1;
 	new->links = NULL;
 	new->isp = 0;
-	new->way = NULL;
 	room_name_and_coords(map, new, line);
 	map->room_q++;
 	return (new);

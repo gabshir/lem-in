@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/08 11:46:30 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/10 22:37:19 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,45 +84,66 @@ void	map_initialisation(t_map *map)
 	map->p = NULL;
 	map->f = /*1*/0;
 	map->way = NULL;
+	map->cut = NULL;
 }
 
 void	ft_printway(t_list *obway)
 {
-	t_list	*way;
+	t_list	*listcomb;
+	t_list *comb;
 	t_room *read;
-	size_t  proxod;
-	int kolway;
+	int k;
 
-	proxod = 1;
-	kolway = 0;
 	while(obway)
 	{
-		if (proxod != obway->content_size)
+		listcomb = obway->content;
+		k = 0;
+		ft_printf("comb nomber = %zu\n", obway->content_size);
+		while (listcomb)
 		{
-			proxod = obway->content_size;
-			ft_printf("kolway %d\n", kolway);
-			kolway = 0;
-			ft_printf("proxod %zu\n", proxod);
+			comb = listcomb->content;
+			while (comb)
+			{
+				read = comb->content;
+				ft_printf("way = %s\n", read->name);
+				comb = comb->next;
+			}
+			k++;
+			listcomb = listcomb->next;
+			ft_printf("**********\n");
 		}
-		way = obway->content;
-		while(way)
-		{
-			read = way->content;
-			ft_printf("way %s\n", read->name);
-			way = way->next;
-		}
-		ft_printf("!!!!!!!!!!\n");
-		kolway++;
+		ft_printf("kol way %d\n", k);
 		obway = obway->next;
 	}
-	ft_printf("kolway %d\n", kolway);
+}
+
+void	ft_globalfree(t_map *map)
+{
+	size_t  i;
+
+	i = 1;
+	ft_lstdel(&map->start.links, NULL);
+	free(map->start.name);
+	map->rooms[0] = NULL;
+	map->start.name = NULL;
+	ft_lstdel(&map->end.links, NULL);
+//	free(map->end.name);
+	map->end.name = NULL;
+	while (i < map->room_q - 1)
+	{
+		ft_lstdel(&map->rooms[i]->links, NULL);
+		free(map->rooms[i]->name);
+		map->rooms[i]->name = NULL;
+		free(map->rooms[i]);
+		map->rooms[i] = NULL;
+		i++;
+	}
+	freeway(&map->way);
 }
 
 int		main(int ac, char **av)
 {
 	t_map	map;
-	t_list	*t;
-	t_room	*read;
 	int		fd;
 	int i;
 
@@ -146,7 +167,8 @@ int		main(int ac, char **av)
 		map.rooms[i]->gl = -1;
 		i++;
 	}
-	way(&map);
+	way(&map, 0);
 	ft_printway(map.way);
+	ft_globalfree(&map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/07 20:00:46 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/10 11:28:56 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct	s_room
 	int 	isp;
 	int		gl;
 	t_list	*links;
-	t_list	*way;
 }				t_room;
 
 typedef struct	s_map
@@ -53,6 +52,7 @@ typedef struct	s_map
 	t_list	*p;
 	int		f;
 	t_list	*way;
+	t_list	*cut;
 }				t_map;
 
 void	validate_axis(t_map *map, t_room *room, char *splitstr, char axis);
@@ -69,14 +69,15 @@ void	create_link(t_map *map, char *name_fst, char *name_snd);
 void	organize_links(t_map *map, char *line);
 int		check_existing_links(t_list *links, char *r_name);
 
-int		algorithm_begins(t_map map);
-int		glubina(t_map *map);
-void	ft_listaddglubina(t_list **up_list, t_list *new);
-void	way(t_map *map);
+void	freeway(t_list **way);
+int		shirina(t_map *map);
+void	way(t_map *map, int l);
+void	restorroom(t_map *map);
+t_list *fiststart(t_list *start);
+t_list	*deque(t_list *que);
+void	ft_listaddshirina(t_list **up_list, t_room *read);
 void	ft_freedown(t_list **links, int n);
-
+int		shirinablok(t_map *map);
 int		links_quantity(t_room *room);
-
-void	debug_links(t_map *map);
 
 #endif
