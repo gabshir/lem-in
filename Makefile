@@ -6,7 +6,7 @@
 #    By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/08 02:27:55 by jwillem-          #+#    #+#              #
-#    Updated: 2019/04/05 04:51:52 by jwillem-         ###   ########.fr        #
+#    Updated: 2019/05/11 16:45:28 by jwillem-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,23 +19,25 @@ MLXFLAGS = -framework OpenGL -framework AppKit
 SRCDIR = srcs/
 OBJDIR = obj/
 
-FILES = main	rooms	val_tools	algo	tools	#test
+FILES = main	rooms	val_tools	algo	tools	bfs	\
+	freelinks	visual	ant_flow	blokway	restorroom	\
+	errors	debug	#test
 SRC = $(addprefix $(SRCDIR), $(addsuffix .c,$(FILES)))
 OBJ = $(addprefix $(OBJDIR),$(addsuffix .o,$(FILES)))
 
 LIBFT = ./libft/libftprintf.a 
-#MLXLIB = ./minilibx/libmlx.a
+MLXLIB = ./minilibx/libmlx.a
 INCDIR = -I ./includes
-LIBLINK = -L ./libft -lftprintf #-L ./minilibx -lmlx
-LIBINC = -I ./libft/includes #-I ./minilibx
+LIBLINK = -L ./libft -lftprintf -L ./minilibx -lmlx
+LIBINC = -I ./libft/includes -I ./minilibx
 
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@make -C ./libft
 
-#$(MLXLIB):
-#	@make -C ./minilibx
+$(MLXLIB):
+	@make -C ./minilibx
 
 $(OBJDIR):
 	@echo "Creating Lem-in object files directory..."
@@ -47,12 +49,12 @@ $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
 
 $(NAME): $(OBJ)
 	@echo "Compiling Lem-in..."
-	@$(CC) $(LIBLINK) -o $(NAME) $(OBJ)
+	@$(CC) $(LIBLINK) $(MLXFLAGS) -o $(NAME) $(OBJ)
 	@echo "Lem-in is compiled!"
 
 libclean:
 	@make clean -C ./libft
-	#@make clean -C ./minilibx
+	@make clean -C ./minilibx
 
 clean: libclean
 	@echo "Deleting Lem-in object files..."
@@ -68,3 +70,9 @@ fclean: clean
 
 re: fclean
 	@$(MAKE) all
+
+test-bigs:
+	./generator --big-superposition > test1; ./lem-in test1
+
+test-big:
+	./generator --big > test1; ./lem-in test1

@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/10 11:28:56 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/11 16:32:33 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,65 @@
 
 # include "ft_printf.h"
 # include <stdio.h>
+# include "mlx.h"
+# include <limits.h>
 
 // # define START_ROOM	1
 // # define END_ROOM	2
 # define ER	"ERROR: "
+# define SECURE_MALLOC(a)	!(a) && memory_error()
 
 # define ROOMS	map->rooms
 # define ROOM_Q	map->room_q
+
+/*
+**	Graphics macros and structures
+*/
+
+# define W_WIDTH	1920
+# define W_HEIGHT	1080
+# define BACK		0xF0FFFF
+# define START		0x00CC00
+# define END		0x0000FF
+# define COMMON		0x000000
+# define NAME		0xCE26C9
+# define INDENT		map->mlx.indent
+
+typedef struct	s_img
+{
+	void	*img_ptr;
+	int		*data;
+	int		size_l;
+	int		bpp;
+	int		endian;
+}				t_img;
+
+typedef struct	s_mlx
+{
+	void	*mlx_ptr;
+	void	*win;
+	t_img	pic;
+	int		indent;
+	int		y_len;
+	int		x_len;
+}				t_mlx;
+
+/*
+**	Algo structures
+*/
 
 typedef enum	e_sort
 {
 	not_sorted, sorted
 }				e_sort;
+
+typedef	struct	s_comb
+{
+	int		quant;
+	int		sum_len;
+	int		steps;
+	t_list	**way_arr;
+}				t_comb;
 
 typedef struct	s_room
 {
@@ -45,14 +92,17 @@ typedef struct	s_map
 	int		error;
 	int		ants;
 	int		room_q;
-	int		short_ways;
+	// int		short_ways;
 	t_room	start;
 	t_room	end;
 	t_room	**rooms;
-	t_list	*p;
-	int		f;
+	// t_list	*p;
+	// int		f;
 	t_list	*way;
 	t_list	*cut;
+	t_comb	*comb;
+
+	t_mlx	mlx;
 }				t_map;
 
 void	validate_axis(t_map *map, t_room *room, char *splitstr, char axis);
@@ -78,6 +128,34 @@ t_list	*deque(t_list *que);
 void	ft_listaddshirina(t_list **up_list, t_room *read);
 void	ft_freedown(t_list **links, int n);
 int		shirinablok(t_map *map);
-int		links_quantity(t_room *room);
+// int		links_quantity(t_room *room);
+
+/*
+**	Ant flow
+*/
+
+void    ant_flow(t_map *map);
+
+/*
+**	Error
+*/
+
+int    memory_error(void);
+
+/*
+**	Debug
+*/
+
+void	debug_links(t_map *map);
+void	ft_printway(t_list *obway);
+void	print_que(t_list *que);
+void	print_combinations(t_map *map);
+void	print_one_comb(t_comb *comb, int ants);
+
+/*
+**	Visual
+*/
+
+void   	visualization(t_map *map);
 
 #endif

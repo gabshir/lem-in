@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/02 14:13:23 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/11 16:59:31 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void	start_init(t_map *map, char *line, int fd)
 			ft_printf("%s\n", line);
 			check_hash(map, line, "##start", "##end");
 			map->start.links = NULL;
-			map->start.f = 1;
 			map->start.isp = 0;
 			room_name_and_coords(map, &map->start, line);
+			map->start.f = 1;
 			map->room_q++;
 		}
 		else
