@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.c                                             :+:      :+:    :+:   */
+/*   superposition.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 21:35:29 by gabshire         ###   ########.fr       */
+/*   Created: 2019/05/11 21:25:15 by gabshire          #+#    #+#             */
+/*   Updated: 2019/05/11 21:25:15 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-
-
-void	way(t_map *map, int l)
+void super_position(t_map *map)
 {
 	int i;
 	t_list *combnow;
@@ -31,21 +29,4 @@ void	way(t_map *map, int l)
 	combnow = NULL;
 	restisp(&map->way);
 	restorroom(map);
-	while (shirinablok(map) == 1 && i == 0)
-	{
-		ft_saveway(&map->end, &combnow, 1);
-		restorroom(map);
-		i = path_analysis(&map->way);
-	}
-	ft_lstpush(&map->cut, ft_lstnew_ptr(combnow));
-	restisp(&map->cut);
-	restornap(&map->way);
-	restornap(&map->cut);
-	freeway(&map->cut);
-	restorroom(map);
-	if (i == 1)
-	{
-		l = l + 1;
-		way(map, l);
-	}
 }
