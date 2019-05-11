@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 16:32:33 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/11 21:02:43 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,10 @@ typedef struct	s_map
 	int		error;
 	int		ants;
 	int		room_q;
-	// int		short_ways;
+	float	connectivity;
 	t_room	start;
 	t_room	end;
 	t_room	**rooms;
-	// t_list	*p;
-	// int		f;
 	t_list	*way;
 	t_list	*cut;
 	t_comb	*comb;
@@ -129,6 +127,12 @@ void	ft_listaddshirina(t_list **up_list, t_room *read);
 void	ft_freedown(t_list **links, int n);
 int		shirinablok(t_map *map);
 // int		links_quantity(t_room *room);
+
+/*
+**	Tools
+*/
+
+float	connectivity(t_map *map);
 
 /*
 **	Ant flow

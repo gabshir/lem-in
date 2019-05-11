@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 16:03:52 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 16:32:24 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/11 18:40:51 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ int    memory_error(void)
 {
     ft_printf(ER "Couldn't allocate memory.\n");
 	exit(1);
-    return (0);
+    return (1);
 }

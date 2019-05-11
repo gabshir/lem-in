@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 14:14:38 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/04/05 12:06:09 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/11 20:15:39 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list)
 {
 	t_room	**rooms;
 	t_list	*ptr;
+	size_t	i;
 
 	if (!(rooms = (t_room**)ft_memalloc(sizeof(t_room*) * (map->room_q + 1))))
 	{
@@ -31,6 +32,9 @@ t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list)
 		put_ptr_in_array(map->room_q - 2, rooms, (t_room*)ptr->content);
 		ptr = ptr->next;
 	}
+	i = -1;
+	while (rooms[++i])
+		rooms[i]->n = i;
 	ft_lstdel(room_list, NULL);
 	return (rooms);
 }

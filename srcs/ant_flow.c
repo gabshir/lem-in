@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 16:44:48 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/11 20:50:46 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ static void	combinations_memalloc(t_map *map)
 			path = path->next;
 		}
 		map->comb[i].steps = (map->ants + map->comb[i].sum_len - 1) / map->comb[i].quant;
-		// print_one_comb(&map->comb[i], map->ants);
 		comb = comb->next;
 	}
 }
@@ -137,7 +136,7 @@ void    ant_flow(t_map *map)
 
 	// construct_combinations(map);
 	combinations_memalloc(map);
-	print_combinations(map); // debug
+	// print_combinations(map); // debug
 	comb = choose_combination(map);
 	print_one_comb(comb, map->ants);
 }

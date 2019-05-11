@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 16:59:44 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/11 21:02:37 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ void	get_map_info(t_map *map, int fd)
 		}
 		free(line);
 	}
-	// map->short_ways = (links_quantity(&map->start) < links_quantity(&map->end) ? \
-	// 	links_quantity(&map->start) : links_quantity(&map->end));
+	map->connectivity = connectivity(map);
 }
 
 void	map_initialisation(t_map *map)
@@ -81,8 +80,6 @@ void	map_initialisation(t_map *map)
 	map->end.name = NULL;
 	map->room_q = 0;
 	map->rooms = NULL;
-	// map->p = NULL;
-	// map->f = /*1*/0;
 	map->way = NULL;
 	map->cut = NULL;
 }
@@ -115,10 +112,10 @@ int		main(int ac, char **av)
 {
 	t_map	map;
 	int		fd;
-	int i;
+	// int i;
 
 	ac = 0;
-	i = 0;
+	// i = 0;
 	fd = ft_read_file(av[1]);
 	if (fd == -1)
 		exit(1);
@@ -130,15 +127,10 @@ int		main(int ac, char **av)
 		exit(1);
 	}
 	ft_printf("########\n");
-	// map.rooms[0]->f = 1;
-	while (map.rooms[i])
-	{
-		map.rooms[i]->n = i;
-		map.rooms[i]->gl = -1;
-		i++;
-	}
+	ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
+	// visualization(&map);
 	way(&map, 0);
-	// ft_printway(map.way);
+	// ft_printway(map.way); // debug
 	ant_flow(&map);
 	// visualization(&map);
 	ft_globalfree(&map);

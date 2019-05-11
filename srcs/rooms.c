@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 16:59:31 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/11 20:08:10 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	room_name_and_coords(t_map *map, t_room *room, char *line)
 	validate_axis(map, room, split[1], 'X');
 	validate_axis(map, room, split[2], 'Y');
 	room->f = 0;
+	room->gl = -1;
 	if (split[3])
 	{
 		ft_printf(ER "You've entered excess info about room %s.\n", room->name);
