@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 21:02:37 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/11 21:28:58 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,3 +136,6 @@ int		main(int ac, char **av)
 	ft_globalfree(&map);
 	return (0);
 }
+
+//Test comment################
+
