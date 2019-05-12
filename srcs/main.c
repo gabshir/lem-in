@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 19:19:45 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:03:51 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_map_info(t_map *map, int fd)
 		}
 		free(line);
 	}
-	map->connectivity = connectivity(map);
+	// map->connectivity = connectivity(map);
 }
 
 void	map_initialisation(t_map *map)
@@ -126,8 +126,8 @@ int		main(int ac, char **av)
 		ft_printf("\nBe careful, you've made %d mistakes in map.\n", map.error);
 		exit(1);
 	}
-	ft_printf("########\n");
-	ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
+	// ft_printf("########\n");
+	// ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
 	// visualization(&map);
 	way(&map, 0);
 	// ft_printway(map.way); // debug

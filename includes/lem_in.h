@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 19:44:16 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:03:16 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	ft_saveway(t_room *end, t_list **way, int f);
 **	Tools
 */
 
-float	connectivity(t_map *map);
+// float	connectivity(t_map *map);
 
 /*
 **	Ant flow

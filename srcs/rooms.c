@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 20:08:10 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 20:31:30 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	start_init(t_map *map, char *line, int fd)
 			ft_printf(ER "You didn't specify the Start room.\n");
 			map->error++;
 		}
+		free(line);
 	}
 	else
 	{
@@ -121,6 +122,7 @@ void	end_init(t_map *map, char *line, int fd)
 			ft_printf(ER "You didn't specify the Start room.\n");
 			map->error++;
 		}
+		free(line);
 	}
 	else
 	{

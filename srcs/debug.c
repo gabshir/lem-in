@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:40:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 19:44:41 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:04:36 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	print_que(t_list *que)
 	static int	debug;
 
 	ptr = que;
-	ft_printf("\nWay № %d. Length = %d.\n", ++debug, ft_lstlen(que));
-	while (ptr)
-	{
-		ft_printf("%s ", ((t_room*)ptr->content)->name);
-		ptr = ptr->next;
-		if (ptr)
-			ft_printf("- ");
-		else
-			ft_printf("\n");
-	}
+	ft_printf("\nWay № %d. Length = %d.\n", ++debug, ft_lstlen(que) - 1);
+	// while (ptr)
+	// {
+	// 	ft_printf("%s ", ((t_room*)ptr->content)->name);
+	// 	ptr = ptr->next;
+	// 	if (ptr)
+	// 		ft_printf("- ");
+	// 	else
+	// 		ft_printf("\n");
+	// }
 	// ft_printf("\n----------------\n");
 }
 

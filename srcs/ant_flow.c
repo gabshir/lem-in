@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 19:39:27 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:56:49 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,16 +139,31 @@ static void	make_best_combination(t_map *map/*, t_comb *comb*/)
 	}
 }
 
+static int	sum_difference(t_map *map, int i)
+{
+	static int	sum_diff;
+	
+	sum_diff += ft_lstlen(map->comb.way_arr[map->comb.quant - 1]) - \
+		ft_lstlen(map->comb.way_arr[i++]);
+	if (i < map->comb.quant)
+		sum_difference(map, i);
+	else
+		return (sum_difference);
+}
+
+static void	let_ants_go(t_map *map)
+{
+	int	min_ant;
+	int	i;
+	
+	min_ant = (map->ants - sum_difference(map, 0)) / map->comb.quant;
+	i = -1;
+	while (++i < map->comb.quant)
+}
+
 void    ant_flow(t_map *map)
 {
-	// t_comb	*comb;
-	// t_comb	comb;
-
-	// construct_combinations(map);
-	// combinations_memalloc(map);
-	// print_combinations(map); // debug
-	// comb = choose_combination(map);
-	make_best_combination(map/*, &comb*/);
-	// print_one_comb(comb, map->ants);
-	print_one_comb(map);
+	make_best_combination(map);
+	print_one_comb(map);	//debug
+	let_ants_go(map);
 }
