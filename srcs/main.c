@@ -6,7 +6,11 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2019/05/12 20:27:32 by gabshire         ###   ########.fr       */
+=======
 /*   Updated: 2019/05/12 19:19:45 by jwillem-         ###   ########.fr       */
+>>>>>>> 3a40f4a0242b1706f3a78b408f49607c26b79e56
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +74,7 @@ void	get_map_info(t_map *map, int fd)
 		free(line);
 	}
 	map->connectivity = connectivity(map);
+	free(line);
 }
 
 void	map_initialisation(t_map *map)
@@ -94,7 +99,7 @@ void	ft_globalfree(t_map *map)
 	map->rooms[0] = NULL;
 	map->start.name = NULL;
 	ft_lstdel(&map->end.links, NULL);
-//	free(map->end.name);
+	free(map->end.name);
 	map->end.name = NULL;
 	while ((int)i < map->room_q - 1)
 	{
@@ -105,6 +110,8 @@ void	ft_globalfree(t_map *map)
 		map->rooms[i] = NULL;
 		i++;
 	}
+	free(map->rooms);
+	map->rooms = NULL;
 	freeway(&map->way);
 }
 

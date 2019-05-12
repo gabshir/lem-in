@@ -3,83 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillem- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/09 17:38:49 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/04/05 12:06:09 by gabshire         ###   ########.fr       */
+/*   Created: 2019/01/10 14:36:10 by gabshire          #+#    #+#             */
+/*   Updated: 2019/05/12 20:42:02 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	stack_has_n(char **stack, char **line)
+static t_list	*get_correct_file(t_list **file, int fd)
 {
-	char	*ptr;
+	t_list	*tmp;
 
-	if ((ptr = ft_strchr(*stack, '\n')))
+	tmp = *file;
+	while (tmp)
 	{
-		*ptr = '\0';
-		if (!(*line = ft_strdup(*stack)))
-			return (-1);
-		if (!(ptr = ft_strdup(ptr + 1)))
-			return (-1);
-		free(*stack);
-		*stack = ptr;
-		return (1);
+		if ((int)tmp->content_size == fd)
+			return (tmp);
+		tmp = tmp->next;
 	}
+	if (!(tmp = (t_list *)malloc(sizeof(t_list))))
+		return (NULL);
+	tmp->content = NULL;
+	tmp->content = ft_strnew(1);
+	tmp->content_size = (size_t)fd;
+	ft_lstadd(file, tmp);
+	tmp->next = NULL;
+	return (tmp);
+}
+
+static int		ft_poisk(const char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
+static char		*ft_strjoin_freep(char *str1, char *str2)
+{
+	char	*s;
+
+	s = ft_strjoin(str1, str2);
+	free(str1);
+	str1 = NULL;
+	return (s);
+}
+
+static int		last(t_get *n, char **line)
+{
+	*line = ft_strnew(1);
+	free(n->temp->content);
+	free(n->temp);
 	return (0);
 }
 
-static int	read_line(const int fd, char **stack, char **line, char *buf)
+int				get_next_line(const int fd, char **line)
 {
-	char	*tmp;
-	int		rv;
+	t_get			n;
+	static t_list	*bufer;
+	char			buf[BUFF_SIZE + 1];
 
-	while ((rv = read(fd, buf, BUFF_SIZE)) > 0)
+	if (fd < 0 || BUFF_SIZE < 0 || !line || read(fd, buf, 0) == -1)
+		return (-1);
+	n.temp = get_correct_file(&bufer, fd);
+	while ((n.o = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		buf[rv] = '\0';
-		if (*stack)
-		{
-			tmp = ft_strjoin(*stack, buf);
-			free(*stack);
-			*stack = tmp;
-		}
-		else
-			*stack = ft_strdup(buf);
-		if (stack_has_n(stack, line))
+		buf[n.o] = '\0';
+		n.temp->content = ft_strjoin_freep(n.temp->content, buf);
+		if (ft_poisk(buf, '\n') != n.o)
 			break ;
 	}
-	if (rv > 0)
-		return (1);
-	else
-		return (rv);
-}
-
-int			get_next_line(const int fd, char **line)
-{
-	static char	*stack[MAX_FD];
-	char		*buf;
-	int			rv;
-
-	if (!line || fd < 0 || fd >= MAX_FD)
-		return (-1);
-	if (stack[fd])
-	{
-		rv = stack_has_n(&stack[fd], line);
-		if (rv)
-			return (rv);
-	}
-	if (!(buf = ft_strnew(BUFF_SIZE)))
-		return (-1);
-	rv = read_line(fd, &stack[fd], line, buf);
-	free(buf);
-	if (rv || stack[fd] == NULL || stack[fd][0] == '\0')
-	{
-		if (!rv && *line)
-			*line = NULL;
-		return (rv);
-	}
-	*line = stack[fd];
-	stack[fd] = NULL;
+	if (n.o < BUFF_SIZE && ft_strlen(bufer->content) == 0)
+		return (last(&n, line));
+	n.o = ft_poisk(n.temp->content, '\n');
+	*line = ft_strsub(n.temp->content, 0, n.o);
+	n.s = ft_strsub(n.temp->content, n.o + 1, ft_strlen(n.temp->content) - n.o);
+	free(n.temp->content);
+	n.temp->content = n.s;
 	return (1);
 }

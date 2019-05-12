@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 15:02:22 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 20:11:57 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	way(t_map *map, int l)
 		restorroom(map);
 		i = path_analysis(&map->way);
 	}
-	ft_lstpush(&map->cut, ft_lstnew_ptr(combnow));
+	if (combnow)
+		ft_lstpush(&map->cut, ft_lstnew_ptr(combnow));
 	restisp(&map->cut);
 	restornap(&map->way);
 	restornap(&map->cut);

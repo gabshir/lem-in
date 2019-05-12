@@ -94,6 +94,7 @@ void	start_init(t_map *map, char *line, int fd)
 			ft_printf(ER "You didn't specify the Start room.\n");
 			map->error++;
 		}
+		free(line);
 	}
 	else
 	{
@@ -121,6 +122,7 @@ void	end_init(t_map *map, char *line, int fd)
 			ft_printf(ER "You didn't specify the Start room.\n");
 			map->error++;
 		}
+		free(line);
 	}
 	else
 	{
