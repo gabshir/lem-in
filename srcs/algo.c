@@ -12,8 +12,6 @@
 
 #include "lem_in.h"
 
-
-
 void	way(t_map *map, int l)
 {
 	int i;
