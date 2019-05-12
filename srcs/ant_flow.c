@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 20:50:46 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 17:46:50 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,33 +110,73 @@ static void	combinations_memalloc(t_map *map)
 	}
 }
 
-static t_comb	*choose_combination(t_map *map)
-{
-	t_comb	*comb;
-	int	i;
-	int	min;
+// static t_comb	*choose_combination(t_map *map)
+// {
+// 	t_comb	*comb;
+// 	int	i;
+// 	int	min;
 	
-	i = -1;
-	min = INT_MAX;
-	// comb = &map->comb[i];
-	while (map->comb[++i].steps)
+// 	i = -1;
+// 	min = INT_MAX;
+// 	// comb = &map->comb[i];
+// 	while (map->comb[++i].steps)
+// 	{
+// 		if (map->comb[i].steps < min)
+// 		{
+// 			min = map->comb[i].steps;
+// 			comb = &map->comb[i];
+// 		}
+// 	}
+// 	return (comb);
+// }
+
+static void	make_best_combination(t_map *map, t_comb *comb)
+{
+	// t_comb	*comb;
+	int		cur_steps;
+	// int		min_steps;
+	int		sum_len;
+	int		w_idx;
+	// int		ways_q;
+	int		comb_idx;
+	int		rem_comb_idx;
+
+	comb_idx = -1;
+	comb->steps = INT_MAX;
+	while (map->comb[++comb_idx].steps)
 	{
-		if (map->comb[i].steps < min)
+		w_idx = -1;
+		sum_len = 0;
+		while (map->comb[comb_idx].way_arr[++w_idx])
 		{
-			min = map->comb[i].steps;
-			comb = &map->comb[i];
+			sum_len += ft_lstlen(map->comb[comb_idx].way_arr[w_idx]) - 1;
+			cur_steps = (map->ants + sum_len - 1) / (w_idx + 1);
+			if (cur_steps < comb->steps)
+			{
+				rem_comb_idx = comb_idx;
+				comb->quant = w_idx + 1;
+				comb->steps = cur_steps;
+				comb->sum_len = sum_len;
+			}
 		}
 	}
-	return (comb);
+	// SECURE_MALLOC(comb = ft_memalloc(sizeof(t_comb*) * 1));
+	SECURE_MALLOC(comb->way_arr = /*(t_list**)*/ft_memalloc(sizeof(t_list*) * (comb->quant + 1)));
+	w_idx = -1;
+	while (++w_idx < comb->quant)
+		comb->way_arr[w_idx] = map->comb[rem_comb_idx].way_arr[w_idx];
 }
 
 void    ant_flow(t_map *map)
 {
-	t_comb	*comb;
+	// t_comb	*comb;
+	t_comb	comb;
 
 	// construct_combinations(map);
 	combinations_memalloc(map);
 	// print_combinations(map); // debug
-	comb = choose_combination(map);
-	print_one_comb(comb, map->ants);
+	// comb = choose_combination(map);
+	make_best_combination(map, &comb);
+	// print_one_comb(comb, map->ants);
+	print_one_comb(&comb, map->ants);
 }

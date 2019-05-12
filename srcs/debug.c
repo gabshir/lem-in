@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:40:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 19:11:44 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 16:55:51 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 void	print_que(t_list *que)
 {
 	t_list	*ptr;
+	static int	debug;
 
 	ptr = que;
-	while (ptr)
-	{
-		// ft_printf("%s(%d) ", ((t_room*)ptr->content)->name, ((t_room*)ptr->content)->cost);
-		ft_printf("%s ", ((t_room*)ptr->content)->name);
-		ptr = ptr->next;
-		if (ptr)
-			ft_printf("- ");
-	}
-	ft_printf("\n");
+	ft_printf("Way № %d. Length = %d.\n", ++debug, ft_lstlen(que));
+	// while (ptr)
+	// {
+	// 	ft_printf("%s ", ((t_room*)ptr->content)->name);
+	// 	ptr = ptr->next;
+	// 	if (ptr)
+	// 		ft_printf("- ");
+	// }
+	ft_printf("\n----------------\n");
 }
 
 void	ft_printway(t_list *obway)
@@ -80,11 +81,20 @@ void	ft_printway(t_list *obway)
 void	print_one_comb(t_comb *comb, int ants)
 {
 	int	w_idx;
+	int	sum_len;
+	int	steps;
 	
 	w_idx = 0;
+	sum_len = 0;
 	ft_printf("BEST COMBINATION:\n");
-	// while (comb->way_arr[w_idx])
-	// 	print_que(comb->way_arr[w_idx++]);
+	while (comb->way_arr[w_idx])
+	{
+		sum_len += ft_lstlen(comb->way_arr[w_idx]) - 1;
+		steps = (ants + sum_len - 1) / (w_idx + 1);
+		ft_printf("All %d ants will be transported for %d steps.", \
+			ants, steps);
+		print_que(comb->way_arr[w_idx++]);
+	}
 	ft_printf("\nQuantity of ways = %d\n", comb->quant);
 	ft_printf("Summary length of ways = %d\n", comb->sum_len);
 	ft_printf("All %d ants will be transported for %d steps\n------------------\n\n", \
