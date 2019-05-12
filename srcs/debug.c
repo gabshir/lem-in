@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:40:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 16:55:51 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:44:41 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ void	print_que(t_list *que)
 	static int	debug;
 
 	ptr = que;
-	ft_printf("Way № %d. Length = %d.\n", ++debug, ft_lstlen(que));
-	// while (ptr)
-	// {
-	// 	ft_printf("%s ", ((t_room*)ptr->content)->name);
-	// 	ptr = ptr->next;
-	// 	if (ptr)
-	// 		ft_printf("- ");
-	// }
-	ft_printf("\n----------------\n");
+	ft_printf("\nWay № %d. Length = %d.\n", ++debug, ft_lstlen(que));
+	while (ptr)
+	{
+		ft_printf("%s ", ((t_room*)ptr->content)->name);
+		ptr = ptr->next;
+		if (ptr)
+			ft_printf("- ");
+		else
+			ft_printf("\n");
+	}
+	// ft_printf("\n----------------\n");
 }
 
 void	ft_printway(t_list *obway)
@@ -78,7 +80,7 @@ void	ft_printway(t_list *obway)
 // 	}
 // }
 
-void	print_one_comb(t_comb *comb, int ants)
+void	print_one_comb(t_map *map)
 {
 	int	w_idx;
 	int	sum_len;
@@ -87,35 +89,36 @@ void	print_one_comb(t_comb *comb, int ants)
 	w_idx = 0;
 	sum_len = 0;
 	ft_printf("BEST COMBINATION:\n");
-	while (comb->way_arr[w_idx])
+	while (map->comb.way_arr[w_idx])
 	{
-		sum_len += ft_lstlen(comb->way_arr[w_idx]) - 1;
-		steps = (ants + sum_len - 1) / (w_idx + 1);
-		ft_printf("All %d ants will be transported for %d steps.", \
-			ants, steps);
-		print_que(comb->way_arr[w_idx++]);
+		sum_len += ft_lstlen(map->comb.way_arr[w_idx]) - 1;
+		steps = (map->ants + sum_len - 1) / (w_idx + 1);
+		print_que(map->comb.way_arr[w_idx++]);
+		ft_printf("All %d ants will be transported for %d steps.\n", \
+			map->ants, steps);
+		ft_printf("----------------\n");
 	}
-	ft_printf("\nQuantity of ways = %d\n", comb->quant);
-	ft_printf("Summary length of ways = %d\n", comb->sum_len);
+	ft_printf("\nQuantity of ways = %d\n", map->comb.quant);
+	ft_printf("Summary length of ways = %d\n", map->comb.sum_len);
 	ft_printf("All %d ants will be transported for %d steps\n------------------\n\n", \
-		ants, comb->steps);
+		map->ants, map->comb.steps);
 }
 
-void	print_combinations(t_map *map)
-{
-	int	i;
-	int	w_idx;
+// void	print_combinations(t_map *map)
+// {
+// 	int	i;
+// 	int	w_idx;
 
-	i = -1;
-	while (map->comb[++i].way_arr)
-	{
-		ft_printf("Combination № %d:\n\n", i + 1);
-		w_idx = 0;
-		// while (map->comb[i].way_arr[w_idx])
-		// 	print_que(map->comb[i].way_arr[w_idx++]);
-		ft_printf("\nQuantity of ways = %d\n", map->comb[i].quant);
-		ft_printf("Summary length of ways = %d\n", map->comb[i].sum_len);
-		ft_printf("All %d ants will be transported for %d steps\n------------------\n\n", \
-			map->ants, map->comb[i].steps);
-	}
-}
+// 	i = -1;
+// 	while (map->comb[++i].way_arr)
+// 	{
+// 		ft_printf("Combination № %d:\n\n", i + 1);
+// 		w_idx = 0;
+// 		// while (map->comb[i].way_arr[w_idx])
+// 		// 	print_que(map->comb[i].way_arr[w_idx++]);
+// 		ft_printf("\nQuantity of ways = %d\n", map->comb[i].quant);
+// 		ft_printf("Summary length of ways = %d\n", map->comb[i].sum_len);
+// 		ft_printf("All %d ants will be transported for %d steps\n------------------\n\n", \
+// 			map->ants, map->comb[i].steps);
+// 	}
+// }

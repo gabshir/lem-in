@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 21:35:29 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:44:16 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct	s_map
 	t_room	**rooms;
 	t_list	*way;
 	t_list	*cut;
-	t_comb	*comb;
+	t_comb	comb;
 
 	t_mlx	mlx;
 }				t_map;
@@ -162,8 +162,8 @@ int    memory_error(void);
 void	debug_links(t_map *map);
 void	ft_printway(t_list *obway);
 void	print_que(t_list *que);
-void	print_combinations(t_map *map);
-void	print_one_comb(t_comb *comb, int ants);
+// void	print_combinations(t_map *map);
+void	print_one_comb(t_map *map);
 
 /*
 **	Visual
