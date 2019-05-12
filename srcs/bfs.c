@@ -6,7 +6,7 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:47:25 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/10 18:54:51 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:04:38 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ t_list *fiststart(t_list *start)
 	return (temp);
 }
 
+//t_list	*deque(t_list *que)
+//{
+//	t_list	*ptr;
+//
+//	ptr = que->next;
+//	free(que);
+//	que = NULL;
+//	return (ptr);
+//}
 t_list	*deque(t_list *que)
 {
 	t_list	*ptr;

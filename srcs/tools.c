@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 04:44:02 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 21:35:29 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/12 18:31:45 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ int path_analysis(t_list **combo)
 					break ;
 				else if (readt->n == temp->n)
 				{
+					links = links->next;
 					ft_freedown(&readt->links, reads->n);
 					ft_freedown(&reads->links, readt->n);
 					f = 1;
 					//return (1);
-					links = links->next;
 				}
 				else
 					links = links->next;
