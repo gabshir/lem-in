@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/11 21:35:29 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/12 15:02:22 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ void	way(t_map *map, int l)
 		ft_saveway(&map->end, &combnow, 0);
 		restorroom(map);
 	}
-	ft_lstpush(&map->way, ft_lstnew_ptr(combnow));
-	ft_konnekt(&map->way, l);
-	combnow = NULL;
+	if (combnow != NULL)
+	{
+		ft_lstpush(&map->way, ft_lstnew_ptr(combnow));
+		ft_konnekt(&map->way, l);
+		combnow = NULL;
+	}
 	restisp(&map->way);
 	restorroom(map);
 	while (shirinablok(map) == 1 && i == 0)
