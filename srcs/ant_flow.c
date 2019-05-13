@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/13 16:27:24 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:43:54 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ static int	sum_difference(t_map *map, int i)
 		ft_lstlen(C_WAY[i++]);
 	if (i < C_QUANT)
 		sum_difference(map, i);
-	// ft_printf("Summary length difference = %d\n", sum_diff);
 	return (sum_diff);
 }
 
@@ -158,11 +157,9 @@ static void	route_ants(t_map *map)
 	int	remainder;
 	int	i;
 	
-	ft_printf("C_QUANT = %d\n", C_QUANT);
 	sum_diff = sum_difference(map, 0);
 	min_ant = (map->ants - sum_diff) / C_QUANT;
 	remainder = (map->ants - sum_diff) % C_QUANT;
-	ft_printf("remainder = %d\nmin_ant = %d\n", remainder, min_ant);
 	i = -1;
 	while (++i < C_QUANT)
 	{
