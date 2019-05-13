@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 21:56:49 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:27:24 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	make_best_combination(t_map *map/*, t_comb *comb*/)
 	int		way_q;
 
 	comb_ptr = map->way;
-	map->comb.steps = INT_MAX;
+	C_STEPS = INT_MAX;
 	while (comb_ptr)
 	{
 		way = comb_ptr->content;
@@ -115,26 +115,26 @@ static void	make_best_combination(t_map *map/*, t_comb *comb*/)
 		{
 			sum_len += ft_lstlen(way->content) - 1;
 			cur_steps = (map->ants + sum_len - 1) / ++way_q;
-			if (cur_steps < map->comb.steps)
+			if (cur_steps < C_STEPS)
 			{
 				comb_number = comb_ptr->content_size;
-				map->comb.quant = way_q;
-				map->comb.steps = cur_steps;
-				map->comb.sum_len = sum_len;
+				C_QUANT = way_q;
+				C_STEPS = cur_steps;
+				C_SUM_LEN = sum_len;
 			}
 			way = way->next;
 		}
 		comb_ptr = comb_ptr->next;
 	}
-	SECURE_MALLOC(map->comb.way_arr = /*(t_list**)*/ft_memalloc(sizeof(t_list*) * (map->comb.quant + 1)));
+	SECURE_MALLOC(C_WAY = ft_memalloc(sizeof(t_list*) * (C_QUANT + 1)));
 	comb_ptr = map->way;
 	while (comb_ptr->content_size != comb_number)
 		comb_ptr = comb_ptr->next;
 	way = comb_ptr->content;
 	way_q = 0;
-	while (way_q < map->comb.quant)
+	while (way_q < C_QUANT)
 	{
-		map->comb.way_arr[way_q++] = way->content;
+		C_WAY[way_q++] = way->content;
 		way = way->next;
 	}
 }
@@ -143,27 +143,43 @@ static int	sum_difference(t_map *map, int i)
 {
 	static int	sum_diff;
 	
-	sum_diff += ft_lstlen(map->comb.way_arr[map->comb.quant - 1]) - \
-		ft_lstlen(map->comb.way_arr[i++]);
-	if (i < map->comb.quant)
+	sum_diff += ft_lstlen(C_WAY[C_QUANT - 1]) - \
+		ft_lstlen(C_WAY[i++]);
+	if (i < C_QUANT)
 		sum_difference(map, i);
-	else
-		return (sum_difference);
+	// ft_printf("Summary length difference = %d\n", sum_diff);
+	return (sum_diff);
 }
 
-static void	let_ants_go(t_map *map)
+static void	route_ants(t_map *map)
 {
+	int	sum_diff;
 	int	min_ant;
+	int	remainder;
 	int	i;
 	
-	min_ant = (map->ants - sum_difference(map, 0)) / map->comb.quant;
+	ft_printf("C_QUANT = %d\n", C_QUANT);
+	sum_diff = sum_difference(map, 0);
+	min_ant = (map->ants - sum_diff) / C_QUANT;
+	remainder = (map->ants - sum_diff) % C_QUANT;
+	ft_printf("remainder = %d\nmin_ant = %d\n", remainder, min_ant);
 	i = -1;
-	while (++i < map->comb.quant)
+	while (++i < C_QUANT)
+	{
+		C_WAY[i]->content_size = min_ant + \
+			ft_lstlen(C_WAY[C_QUANT - 1]) - ft_lstlen(C_WAY[i]);
+		if (remainder)
+		{
+			C_WAY[i]->content_size++;
+			remainder--;
+		}
+	}
 }
 
 void    ant_flow(t_map *map)
 {
 	make_best_combination(map);
+	// print_one_comb(map);	//debug
+	route_ants(map);
 	print_one_comb(map);	//debug
-	let_ants_go(map);
 }
