@@ -51,6 +51,8 @@ int path_analysis(t_list **combo)
 	t_room *temp;
 	int f;
 
+	if (*combo == NULL)
+		return (0);
 	last_combo = *combo;
 	f = 0;
 	while(last_combo->next)
@@ -94,6 +96,8 @@ void restisp(t_list **way)
 	t_list *links;
 	t_room *read;
 
+	if (*way == NULL)
+		return ;
 	temp = *way;
 	while (temp->next)
 		temp = temp->next;
@@ -131,6 +135,8 @@ void	restornap(t_list **way)
 	t_list *waynow;
 	t_room *read;
 
+	if (*way == NULL)
+		return ;
 	lastcomb = *way;
 	while(lastcomb->next)
 		lastcomb = lastcomb->next;
@@ -192,9 +198,13 @@ void	ft_konnekt(t_list **links, size_t i)
 void	freeway(t_list **way)
 {
 	t_list *rfree;
+	t_list *rfreen;
 	t_list *temp;
+	t_list *tempn;
 	t_list *freenow;
 
+	if (*way == NULL)
+		return ;
 	temp = *way;
 	while (temp)
 	{
@@ -203,12 +213,16 @@ void	freeway(t_list **way)
 		{
 			freenow = rfree->content;
 			ft_lstdel((t_list **) &freenow, NULL);
-			rfree = rfree->next;
+			rfreen = rfree->next;
+			free(rfree);
+			rfree = rfreen;
 		}
-		temp = temp->next;
+		tempn = temp->next;
+		free(temp);
+		temp = NULL;
+		temp = tempn;
 	}
-	free(*way);
-	*way = NULL;
+	*way = temp;
 }
 
 void	ft_saveway(t_room *end, t_list **way, int f)
