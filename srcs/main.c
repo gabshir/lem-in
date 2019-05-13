@@ -69,7 +69,6 @@ void	get_map_info(t_map *map, int fd)
 		}
 		free(line);
 	}
-	map->connectivity = connectivity(map);
 	free(line);
 }
 
@@ -129,8 +128,8 @@ int		main(int ac, char **av)
 		ft_printf("\nBe careful, you've made %d mistakes in map.\n", map.error);
 		exit(1);
 	}
-	ft_printf("########\n");
-	ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
+	// ft_printf("########\n");
+	// ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
 	// visualization(&map);
 	way(&map, 0);
 	// ft_printway(map.way); // debug

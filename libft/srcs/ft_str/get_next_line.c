@@ -35,7 +35,7 @@ static t_list	*get_correct_file(t_list **file, int fd)
 
 static int		ft_poisk(const char *str, char c)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (str[i] && str[i] != c)

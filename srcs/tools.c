@@ -6,25 +6,25 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 04:44:02 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 21:51:02 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:03:28 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-float	connectivity(t_map *map)
-{
-	int		i;
-	int		edges;
+// float	connectivity(t_map *map)
+// {
+// 	int		i;
+// 	int		edges;
 	
-	i = -1;
-	edges = 0;
-	while (ROOMS[++i])
-		edges += ft_lstlen(ROOMS[i]->links);
-	edges /= 2;
-	ft_printf("\nEdges = %d\nRooms = %d\n", edges, ROOM_Q);
-	return ((float)edges / (float)ROOM_Q);
-}
+// 	i = -1;
+// 	edges = 0;
+// 	while (ROOMS[++i])
+// 		edges += ft_lstlen(ROOMS[i]->links);
+// 	edges /= 2;
+// 	ft_printf("\nEdges = %d\nRooms = %d\n", edges, ROOM_Q);
+// 	return ((float)edges / (float)ROOM_Q);
+// }
 
 int		check_existing_links(t_list *links, char *r_name)
 {

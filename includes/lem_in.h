@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 19:44:16 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/13 15:50:52 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 # include "mlx.h"
 # include <limits.h>
 
-// # define START_ROOM	1
-// # define END_ROOM	2
 # define ER	"ERROR: "
 # define SECURE_MALLOC(a)	!(a) && memory_error()
 
-# define ROOMS	map->rooms
-# define ROOM_Q	map->room_q
+# define ROOMS		map->rooms
+# define ROOM_Q		map->room_q
+# define C_QUANT	map->comb.quant
+# define C_STEPS	map->comb.steps
+# define C_WAY		map->comb.way_arr
+# define C_SUM_LEN	map->comb.sum_len
 
 /*
 **	Graphics macros and structures
@@ -141,7 +143,7 @@ void	ft_saveway(t_room *end, t_list **way, int f);
 **	Tools
 */
 
-float	connectivity(t_map *map);
+// float	connectivity(t_map *map);
 
 /*
 **	Ant flow
