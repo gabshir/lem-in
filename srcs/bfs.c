@@ -6,7 +6,7 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:47:25 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/12 19:04:38 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:39:51 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,6 @@ t_list *fiststart(t_list *start)
 	return (temp);
 }
 
-//t_list	*deque(t_list *que)
-//{
-//	t_list	*ptr;
-//
-//	ptr = que->next;
-//	free(que);
-//	que = NULL;
-//	return (ptr);
-//}
 t_list	*deque(t_list *que)
 {
 	t_list	*ptr;
@@ -90,6 +81,23 @@ t_list	*deque(t_list *que)
 	free(que);
 	que = NULL;
 	return (ptr);
+}
+
+int	finishfree(t_list **obr, t_list **up_list)
+{
+	ft_lstdel(obr, NULL);
+	ft_lstdel(up_list, NULL);
+	return (1);
+}
+
+void up_gl(t_list **obr, t_list **up_list, int *gl)
+{
+	if (*obr == NULL)
+	{
+		*obr = *up_list;
+		gl[0]++;
+		*up_list = NULL;
+	}
 }
 
 int	shirina(t_map *map)
@@ -113,19 +121,10 @@ int	shirina(t_map *map)
 			if (read->n != map->end.n)
 				ft_uplistshirina(read, &up_list);
 			else
-				{
-					ft_lstdel(&obr, NULL);
-					ft_lstdel(&up_list, NULL);
-					return (1);
-				}
+				return (finishfree(&obr, &up_list));
 		}
 		obr = deque(obr);
-		if (obr == NULL)
-		{
-			obr = up_list;
-			gl++;
-			up_list = NULL;
-		}
+		up_gl(&obr, &up_list, &gl);
 	}
 	return (0);
 }

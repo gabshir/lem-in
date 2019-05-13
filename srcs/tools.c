@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 04:44:02 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 21:03:28 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/13 21:54:05 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,24 @@ void	ft_konnekt(t_list **links, size_t i)
 	temp->content_size = i;
 }
 
+void	rfreeeee(t_list **rfree)
+{
+	t_list *next;
+	t_list *temp;
+	t_list *freenow;
+
+	temp = *rfree;
+	while (temp)
+	{
+		freenow = temp->content;
+		ft_lstdel((t_list **) &freenow, NULL);
+		next = temp->next;
+		free(temp);
+		temp = next;
+	}
+	*rfree = NULL;
+}
+
 void	freeway(t_list **way)
 {
 	t_list *rfree;
@@ -209,14 +227,7 @@ void	freeway(t_list **way)
 	while (temp)
 	{
 		rfree = temp->content;
-		while (rfree)
-		{
-			freenow = rfree->content;
-			ft_lstdel((t_list **) &freenow, NULL);
-			rfreen = rfree->next;
-			free(rfree);
-			rfree = rfreen;
-		}
+		rfreeeee(&rfree);
 		tempn = temp->next;
 		free(temp);
 		temp = NULL;
@@ -225,18 +236,24 @@ void	freeway(t_list **way)
 	*way = temp;
 }
 
-void	ft_saveway(t_room *end, t_list **way, int f)
+static void	ft_saveup(t_room *read, t_list **waynow, t_room **pred, int *d)
+{
+	read->isp = 1;
+	ft_lstadd(waynow, ft_lstnew_ptr(read));
+	ft_blok(&read->links, *pred);
+	*pred = read;
+	d[0]--;
+}
+
+void	ft_saveway(t_room *end, t_list **way, int f, int d)
 {
 	t_room	*read;
-	int 	d;
 	t_list	*links;
 	t_room *pred;
 	t_list *waynow;
 
 	links = end->links;
 	pred = end;
-	end->isp = 1;
-	d = end->gl;
 	waynow = NULL;
 	ft_lstadd(&waynow, ft_lstnew_ptr(end));
 	while (links)
@@ -244,11 +261,7 @@ void	ft_saveway(t_room *end, t_list **way, int f)
 		read = links->content;
 		if (read->gl == d - 1 && ft_cheak(read->links, d, f) == 0)
 		{
-			read->isp = 1;
-			ft_lstadd(&waynow, ft_lstnew_ptr(read));
-			d--;
-			ft_blok(&read->links, pred);
-			pred = read;
+			ft_saveup(read, &waynow, &pred, &d);
 			links = read->links;
 			if (d == 0)
 			{

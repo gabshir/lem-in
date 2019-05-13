@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/13 15:50:52 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:39:51 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,9 @@ void	ft_blok(t_list **links, t_room *test);
 int 	ft_cheak(t_list *links, int gl, int f);
 void	ft_konnekt(t_list **links, size_t i);
 void	freeway(t_list **way);
-void	ft_saveway(t_room *end, t_list **way, int f);
+void	ft_saveway(t_room *end, t_list **way, int f, int d);
+int		finishfree(t_list **obr, t_list **up_list);
+void	up_gl(t_list **obr, t_list **up_list, int *gl);
 // int		links_quantity(t_room *room);
 
 /*

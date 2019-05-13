@@ -6,7 +6,7 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 19:40:19 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/09 22:29:12 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:06:16 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int shirinablok(t_map *map)
 	int gl;
 
 	gl = 1;
-	map->start.gl = 0;
-	map->start.f = 1;
 	start = fiststart(map->start.links);
 	up_list = NULL;
 	while (start)
@@ -49,19 +47,10 @@ int shirinablok(t_map *map)
 			read->gl = gl;
 			ft_uplistshirinablok(read, &up_list);
 			if (read->n == map->end.n)
-			{
-				ft_lstdel(&start, NULL);
-				ft_lstdel(&up_list, NULL);
-				return (1);
-			}
+				return (finishfree(&start, &up_list));
 		}
 		start = deque(start);
-		if (start == NULL)
-		{
-			start = up_list;
-			gl++;
-			up_list = NULL;
-		}
+		up_gl(&start, &up_list, &gl);
 	}
 	return (0);
 }
