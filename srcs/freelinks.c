@@ -100,5 +100,4 @@ void	ft_freedown(t_list **links, int n)
 		return ;
 	}
 	freeob(links, n);
-
 }

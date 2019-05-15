@@ -21,7 +21,7 @@ OBJDIR = obj/
 
 FILES = main	rooms	val_tools	algo	tools	bfs	\
 	freelinks	visual	ant_flow	blokway	restorroom	\
-	errors	debug	patch_analysis	saveway #test
+	errors	debug	patch_analysis	saveway get_map_info #test
 SRC = $(addprefix $(SRCDIR), $(addsuffix .c,$(FILES)))
 OBJ = $(addprefix $(OBJDIR),$(addsuffix .o,$(FILES)))
 
