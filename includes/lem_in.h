@@ -6,11 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/05/15 14:42:34 by jwillem-         ###   ########.fr       */
-=======
-/*   Updated: 2019/05/15 15:26:11 by gabshire         ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2019/05/15 16:45:43 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +70,18 @@ typedef enum	e_sort
 	not_sorted, sorted
 }				e_sort;
 
+typedef struct	s_room
+{
+	char	*name;
+	int		x;
+	int		y;
+	int		n;
+	int		f;
+	int 	isp;
+	int		gl;
+	t_list	*links;
+}				t_room;
+
 typedef struct	s_path
 {
 	int		len;
@@ -90,18 +98,6 @@ typedef	struct	s_comb
 	// t_list	**way_arr;
 	t_path	*paths;
 }				t_comb;
-
-typedef struct	s_room
-{
-	char	*name;
-	int		x;
-	int		y;
-	int		n;
-	int		f;
-	int 	isp;
-	int		gl;
-	t_list	*links;
-}				t_room;
 
 typedef struct	s_map
 {
@@ -178,7 +174,9 @@ void	debug_links(t_map *map);
 void	ft_printway(t_list *obway);
 void	print_que(t_list *que);
 // void	print_combinations(t_map *map);
-void	print_one_comb(t_map *map);
+// void	print_one_comb(t_map *map);
+void	print_best_comb(t_map *map);
+
 
 /*
 **	Visual

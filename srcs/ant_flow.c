@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 16:25:15 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/15 16:44:59 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,9 @@ static void	make_best_combination(t_map *map)
 		comb_ptr = comb_ptr->next;
 	way = comb_ptr->content;
 	SECURE_MALLOC(C_WAY = ft_memalloc(sizeof(t_path) * (C_QUANT + 1)));
-	way_q = 0;
-	while (way_q < C_QUANT)
+	way_q = -1;
+	while (++way_q < C_QUANT)
 	{
-		// C_WAY[way_q++] = way->content;
 		C_WAY[way_q].len = ft_lstlen(way->content) - 1;
 		SECURE_MALLOC(C_WAY[way_q].rooms = ft_memalloc(sizeof(t_room*) * (C_WAY[way_q].len + 1)));
 		t_list	*ptr = way->content;
@@ -109,16 +108,49 @@ static void	make_best_combination(t_map *map)
 	}
 }
 
+// static int	sum_difference(t_map *map, int i)
+// {
+// 	static int	sum_diff;
+	
+// 	sum_diff += ft_lstlen(C_WAY[C_QUANT - 1]) - \
+// 		ft_lstlen(C_WAY[i++]);
+// 	if (i < C_QUANT)
+// 		sum_difference(map, i);
+// 	return (sum_diff);
+// }
+
 static int	sum_difference(t_map *map, int i)
 {
 	static int	sum_diff;
 	
-	sum_diff += ft_lstlen(C_WAY[C_QUANT - 1]) - \
-		ft_lstlen(C_WAY[i++]);
+	sum_diff += C_WAY[C_QUANT - 1].len - C_WAY[i++].len;
 	if (i < C_QUANT)
 		sum_difference(map, i);
 	return (sum_diff);
 }
+
+// static void	distribute_ants(t_map *map)
+// {
+// 	int	sum_diff;
+// 	int	min_ant;
+// 	int	remainder;
+// 	int	i;
+	
+// 	sum_diff = sum_difference(map, 0);
+// 	min_ant = (map->ants - sum_diff) / C_QUANT;
+// 	remainder = (map->ants - sum_diff) % C_QUANT;
+// 	i = -1;
+// 	while (++i < C_QUANT)
+// 	{
+// 		C_WAY[i]->content_size = min_ant + \
+// 			ft_lstlen(C_WAY[C_QUANT - 1]) - ft_lstlen(C_WAY[i]);
+// 		if (remainder)
+// 		{
+// 			C_WAY[i]->content_size++;
+// 			remainder--;
+// 		}
+// 	}
+// }
 
 static void	distribute_ants(t_map *map)
 {
@@ -133,46 +165,20 @@ static void	distribute_ants(t_map *map)
 	i = -1;
 	while (++i < C_QUANT)
 	{
-		C_WAY[i]->content_size = min_ant + \
-			ft_lstlen(C_WAY[C_QUANT - 1]) - ft_lstlen(C_WAY[i]);
+		C_WAY[i].ants = min_ant + C_WAY[C_QUANT - 1].len - C_WAY[i].len;
 		if (remainder)
 		{
-			C_WAY[i]->content_size++;
+			C_WAY[i].ants++;
 			remainder--;
 		}
 	}
 }
-
-// static t_list	*ft_lstnew_ant(void const *content, int ant)
-// {
-// 	t_list	*newl;
-
-// 	if (!(newl = (t_list *)ft_memalloc(sizeof(*newl))))
-// 		return (NULL);
-// 	if (content == NULL)
-// 	{
-// 		newl->content = NULL;
-// 		newl->content_size = 0;
-// 	}
-// 	else
-// 	{
-// 		newl->content = (void*)content;
-// 		newl->content_size = ant;
-// 	}
-// 	newl->next = NULL;
-// 	return (newl);
-// }
-
-// static void		let_ants_go(t_map *map)
-// {
-	
-// }
 
 void    ant_flow(t_map *map)
 {
 	make_best_combination(map);
 	// print_one_comb(map);	//debug
 	distribute_ants(map);
-	print_one_comb(map);	//debug
+	print_best_comb(map);	//debug
 	// let_ants_go(map);
 }
