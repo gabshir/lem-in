@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 16:45:43 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/15 19:43:12 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ typedef	struct	s_comb
 
 typedef struct	s_map
 {
-	int		error;
-	int		ants;
-	int		room_q;
+	size_t	error;
+	size_t	ants;
+	size_t	room_q;
 	// float	connectivity;
 	t_room	start;
 	t_room	end;
@@ -115,6 +115,7 @@ typedef struct	s_map
 	t_mlx	mlx;
 }				t_map;
 
+void	get_map_info(t_map *map, int fd);
 void	validate_axis(t_map *map, t_room *room, char *splitstr, char axis);
 void	room_name_and_coords(t_map *map, t_room *room, char *line);
 void	check_hash(t_map *map, char *line, char *edge, char *counter_edge);
@@ -124,10 +125,11 @@ t_room	*create_room(t_map *map, char *line);
 void	put_ptr_in_array(int penultimate, t_room **rooms, t_room *room);
 t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list);
 void	check_name_duplicates(t_map *map);
-t_room	*find_room_by_name(t_map *map, char *r_name, int first, int last);
 void	create_link(t_map *map, char *name_fst, char *name_snd);
 void	organize_links(t_map *map, char *line);
 int		check_existing_links(t_list *links, char *r_name);
+void	error_create_links(t_map *map, char *str);
+void	dublication(t_map *map, size_t	duplicates);
 
 int		shirina(t_map *map);
 void	way(t_map *map, int l);

@@ -6,72 +6,11 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 14:58:11 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 19:28:15 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "lem_in.h"
-
-void	quantity_of_ants(t_map *map, char *line)
-{
-	char	*str;
-
-	map->ants = ft_atoi(line);
-	str = ft_itoa(map->ants);
-	if (ft_strcmp(str, line) || map->ants < 1)
-	{
-		ft_printf(ER "Incorrect number of ants!");
-		map->error++;
-	}
-	free(str);
-}
-
-void	get_map_info(t_map *map, int fd)
-{
-	char	*line;
-	t_list	*room_list;
-	t_room	*room;
-	e_sort	time_to_sort;
-	
-	room_list = NULL;
-	time_to_sort = not_sorted;
-	while (get_next_line(fd, &line) > 0)
-	{
-		ft_printf("%s\n", line);
-		if (map->ants == 0 && map->error == 0)
-			quantity_of_ants(map, line);
-		else if (!ft_strcmp(line, "##start"))
-			start_init(map, line, fd);
-		else if (!ft_strcmp(line, "##end"))
-			end_init(map, line, fd);
-		else if (ft_strchr(line, ' ') && ft_strncmp(line, "#", 1))
-		{
-			if (time_to_sort == sorted)
-			{
-				ft_printf(ER "No more rooms after connections have started!\n");
-				map->error++;
-				continue ;
-			}
-			room = create_room(map, line);
-			if (room)
-				ft_lstadd(&room_list, ft_lstnew_ptr(room));
-		}
-		else if (ft_strchr(line, '-') && ft_strncmp(line, "#", 1))
-		{
-			if (time_to_sort == not_sorted)
-			{
-				map->rooms = sorted_rooms_ptr_array(map, &room_list);
-				check_name_duplicates(map);
-			}
-			time_to_sort = sorted;
-			organize_links(map, line);
-		}
-		free(line);
-	}
-	if (line)
-		free(line);
-}
 
 void	map_initialisation(t_map *map)
 {
@@ -97,7 +36,7 @@ void	ft_globalfree(t_map *map)
 	ft_lstdel(&map->end.links, NULL);
 	free(map->end.name);
 	map->end.name = NULL;
-	while ((int)i < map->room_q - 1)
+	while (i < map->room_q - 1)
 	{
 		ft_lstdel(&map->rooms[i]->links, NULL);
 		free(map->rooms[i]->name);
@@ -141,11 +80,12 @@ int		main(int ac, char **av)
 	if (map.way == NULL)
 	{
 		ft_printf("ERROR. No links thitf start - finish\n");
+		ft_globalfree(&map);
 		exit(1);
 	}
 	// ft_printway(map.way); // debug
 	ant_flow(&map);
-	// visualization(&map);
+//	visualization(&map);
 	ft_globalfree(&map);
 	return (0);
 }

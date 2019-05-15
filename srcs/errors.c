@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 16:03:52 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 19:40:15 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,18 @@ int    memory_error(void)
     ft_printf(ER "Couldn't allocate memory.\n");
 	exit(1);
     return (1);
+}
+
+void	error_create_links(t_map *map, char *str)
+{
+	ft_printf(ER "Room %s is not found.\n", str);
+	map->error++;
+
+}
+
+void	dublication(t_map *map, size_t	duplicates)
+{
+	map->error += duplicates;
+	ft_printf("\nBe careful, you've made %d mistakes in map.\n", map->error);
+	exit(1);
 }

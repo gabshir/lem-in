@@ -28,7 +28,7 @@ static void	draw_back(t_map *map)
 	}
 }
 
-static void	draw_one_room(t_map *map, int i)
+static void	draw_one_room(t_map *map, size_t i)
 {
 	int	center;
 	int	from;
@@ -72,7 +72,7 @@ static void	draw_pipe(t_map *map, int prev, int pix)
 			map->mlx.pic.data[prev++] = COMMON;
 }
 
-static void	draw_line(t_map *map, int i, int curr_center, t_room *linked)
+static void	draw_line(t_map *map, size_t i, int curr_center, t_room *linked)
 {
 	int	next_center;
 	int	passed;
@@ -111,7 +111,7 @@ static void	draw_line(t_map *map, int i, int curr_center, t_room *linked)
 		}
 }
 
-static void	draw_links(t_map *map, int i)
+static void	draw_links(t_map *map, size_t i)
 {
 	int		curr_center;
 	t_list	*ptr;
@@ -128,7 +128,7 @@ static void	draw_links(t_map *map, int i)
 
 static void	draw_rooms(t_map *map)
 {
-    int	i;
+    size_t	i;
 
 	i = 0;
 	while (map->rooms[i])
