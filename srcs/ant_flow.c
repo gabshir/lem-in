@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 16:44:59 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/15 21:27:40 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ static void	make_best_combination(t_map *map)
 		SECURE_MALLOC(C_WAY[way_q].rooms = ft_memalloc(sizeof(t_room*) * (C_WAY[way_q].len + 1)));
 		t_list	*ptr = way->content;
 		int	i = -1;
-		while (ptr)
+		while (ptr->next)
 		{
-			C_WAY[way_q].rooms[++i] = ptr->content;
+			C_WAY[way_q].rooms[++i] = ptr->next->content;
 			ptr = ptr->next;
 		}
 		way = way->next;
@@ -166,10 +166,68 @@ static void	distribute_ants(t_map *map)
 	while (++i < C_QUANT)
 	{
 		C_WAY[i].ants = min_ant + C_WAY[C_QUANT - 1].len - C_WAY[i].len;
+		C_WAY[i].last_i = 0;
 		if (remainder)
 		{
 			C_WAY[i].ants++;
 			remainder--;
+		}
+	}
+}
+
+static void	print_ant(int ant, char *room)
+{
+	char	*number;
+	
+	write(1, "L", 1);
+	number = ft_itoa(ant);
+	ft_putstr(number);
+	write(1, "-", 1);
+	ft_putstr(room);
+	write(1, " ", 1);
+	free(number);
+}
+
+static void	let_ants_go(t_map *map)
+{
+	int	ant;
+	int	wi;
+	int	ri;
+	
+	ant = 1;
+	wi = -1;
+	while (++wi < C_QUANT && map->ants)
+	{
+		ri = C_WAY[wi].last_i;
+		while (ri >= 0 && map->ants)
+		{
+			if (ri == 0 && C_WAY[wi].ants)
+			{
+				C_WAY[wi].rooms[ri]->ant_num = ant++;
+				C_WAY[wi].ants--;
+				if (C_WAY[wi].last_i < C_WAY[wi].len - 1)
+					C_WAY[wi].last_i++;
+				else
+					map->ants--;
+			}
+			else if (ri > 0 && C_WAY[wi].rooms[ri - 1]->ant_num)
+			{
+				C_WAY[wi].rooms[ri]->ant_num = C_WAY[wi].rooms[ri - 1]->ant_num;
+				C_WAY[wi].rooms[ri - 1]->ant_num = 0;
+			}
+			else
+				break ;
+			// if (!ri && C_WAY[wi].last_i < C_WAY[wi].len - 1)
+			// 	C_WAY[wi].last_i++;
+			// else
+			// 	map->ants--;
+			print_ant(C_WAY[wi].rooms[ri]->ant_num, C_WAY[wi].rooms[ri]->name);
+			ri--;
+		}
+		if (wi == C_QUANT - 1 && map->ants)
+		{
+			wi = -1;
+			write(1, "\n", 1);
 		}
 	}
 }
@@ -179,6 +237,6 @@ void    ant_flow(t_map *map)
 	make_best_combination(map);
 	// print_one_comb(map);	//debug
 	distribute_ants(map);
-	print_best_comb(map);	//debug
-	// let_ants_go(map);
+	// print_best_comb(map);	//debug
+	let_ants_go(map);
 }

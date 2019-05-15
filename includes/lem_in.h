@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 16:45:43 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/15 18:32:37 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct	s_room
 	int 	isp;
 	int		gl;
 	t_list	*links;
+
+	int		ant_num;
 }				t_room;
 
 typedef struct	s_path
@@ -176,6 +178,7 @@ void	print_que(t_list *que);
 // void	print_combinations(t_map *map);
 // void	print_one_comb(t_map *map);
 void	print_best_comb(t_map *map);
+void	print_path(t_path *path);
 
 
 /*
