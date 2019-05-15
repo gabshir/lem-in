@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:40:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 16:47:37 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,46 @@ void	ft_printway(t_list *obway)
 // 	}
 // }
 
-void	print_one_comb(t_map *map)
+// void	print_one_comb(t_map *map)
+// {
+// 	int	w_idx;
+// 	int	sum_len;
+// 	int	steps;
+	
+// 	w_idx = 0;
+// 	sum_len = 0;
+// 	ft_printf("BEST COMBINATION:\n");
+// 	while (C_WAY[w_idx])
+// 	{
+// 		sum_len += ft_lstlen(C_WAY[w_idx]) - 1;
+// 		steps = (map->ants + sum_len - 1) / (w_idx + 1);
+// 		ft_printf("%d ants will be distributed to this way.\n", C_WAY[w_idx]->content_size);
+// 		print_que(C_WAY[w_idx++]);
+// 		ft_printf("All %d ants will be transported for %d steps.\n", \
+// 			map->ants, steps);
+// 		ft_printf("----------------\n");
+// 	}
+// 	ft_printf("\nQuantity of ways = %d\n", C_QUANT);
+// 	ft_printf("Summary length of ways = %d\n", C_SUM_LEN);
+// 	ft_printf("All %d ants will be transported for %d steps\n------------------\n\n", \
+// 		map->ants, map->comb.steps);
+// }
+
+void	print_best_comb(t_map *map)
 {
 	int	w_idx;
 	int	sum_len;
 	int	steps;
 	
-	w_idx = 0;
+	w_idx = -1;
 	sum_len = 0;
 	ft_printf("BEST COMBINATION:\n");
-	while (C_WAY[w_idx])
+	while (C_WAY[++w_idx].len)
 	{
-		sum_len += ft_lstlen(C_WAY[w_idx]) - 1;
+		sum_len += C_WAY[w_idx].len;
 		steps = (map->ants + sum_len - 1) / (w_idx + 1);
-		ft_printf("%d ants will be distributed to this way.\n", C_WAY[w_idx]->content_size);
-		print_que(C_WAY[w_idx++]);
+		ft_printf("%d ants will be distributed to this way.\n", C_WAY[w_idx].ants);
+		// print_que(C_WAY[w_idx]);
 		ft_printf("All %d ants will be transported for %d steps.\n", \
 			map->ants, steps);
 		ft_printf("----------------\n");

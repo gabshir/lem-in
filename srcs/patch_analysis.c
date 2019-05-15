@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   patch_analysis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 14:38:51 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/15 14:38:51 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 16:44:10 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	linksfree(t_list *links, t_room *readt, t_room *reads, int *f)
 	}
 }
 
-static void inc_patch_analysis(t_room **readt, t_room **reads, t_list *way, t_list **links)
+static void inc_patch_analysis
+	(t_room **readt, t_room **reads, t_list *way, t_list **links)
 {
 	readt[0] = way->content;
 	reads[0] = way->next->content;
