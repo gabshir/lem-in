@@ -6,7 +6,7 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:47:25 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/13 17:39:51 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 15:26:11 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,47 +57,6 @@ static void incmap(t_map *map)
 	map->start.f = 1;
 	map->end.isp = 0;
 	map->end.f = 0;
-}
-
-t_list *fiststart(t_list *start)
-{
-	t_list *temp;
-
-	temp = NULL;
-	while (start)
-	{
-		if (start->content_size == 8)
-			ft_lstpush(&temp, ft_lstnew_ptr(start->content));
-		start = start->next;
-	}
-	return (temp);
-}
-
-t_list	*deque(t_list *que)
-{
-	t_list	*ptr;
-
-	ptr = que->next;
-	free(que);
-	que = NULL;
-	return (ptr);
-}
-
-int	finishfree(t_list **obr, t_list **up_list)
-{
-	ft_lstdel(obr, NULL);
-	ft_lstdel(up_list, NULL);
-	return (1);
-}
-
-void up_gl(t_list **obr, t_list **up_list, int *gl)
-{
-	if (*obr == NULL)
-	{
-		*obr = *up_list;
-		gl[0]++;
-		*up_list = NULL;
-	}
 }
 
 int	shirina(t_map *map)

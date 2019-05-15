@@ -6,11 +6,76 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 20:06:46 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/13 17:06:16 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void restisp(t_list **way)
+{
+	t_list *temp;
+	t_list *combway;
+	t_list *links;
+	t_room *read;
+
+	if (*way == NULL)
+		return ;
+	temp = *way;
+	while (temp->next)
+		temp = temp->next;
+	combway = temp->content;
+	while (combway)
+	{
+		links = combway->content;
+		while (links)
+		{
+			read = links->content;
+			read->isp = 0;
+			read->f = 0;
+			links = links->next;
+		}
+		combway = combway->next;
+	}
+}
+
+void	ft_restor(t_list **links)
+{
+	t_list	*temp;
+
+	temp = *links;
+	while (temp)
+	{
+		temp->content_size = 8;
+		temp = temp->next;
+	}
+}
+
+void	restornap(t_list **way)
+{
+	t_list *lastcomb;
+	t_list *linkcombo;
+	t_list *waynow;
+	t_room *read;
+
+	if (*way == NULL)
+		return ;
+	lastcomb = *way;
+	while(lastcomb->next)
+		lastcomb = lastcomb->next;
+	linkcombo = lastcomb->content;
+	while (linkcombo)
+	{
+		waynow = linkcombo->content;
+		while (waynow)
+		{
+			read = waynow->content;
+			ft_restor(&read->links);
+			waynow = waynow->next;
+		}
+		linkcombo = linkcombo->next;
+	}
+}
 
 static void	ft_uplistfree(t_room *room, t_list **up_list)
 {

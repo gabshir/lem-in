@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 17:38:49 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/13 21:12:53 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 15:19:09 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	read_line(const int fd, char **stack, char **line, char *buf)
 
 static int	last(char **line, char **stack, int rv)
 {
-	if (!rv && *line)
+	if (!rv)
 	{
 		*line = NULL;
 		if (*stack)

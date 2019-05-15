@@ -6,11 +6,50 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 22:31:14 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/13 18:05:46 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	rfreeeee(t_list **rfree)
+{
+	t_list *next;
+	t_list *temp;
+	t_list *freenow;
+
+	temp = *rfree;
+	while (temp)
+	{
+		freenow = temp->content;
+		ft_lstdel((t_list **) &freenow, NULL);
+		next = temp->next;
+		free(temp);
+		temp = next;
+	}
+	*rfree = NULL;
+}
+
+void	freeway(t_list **way)
+{
+	t_list *rfree;
+	t_list *temp;
+	t_list *tempn;
+
+	if (*way == NULL)
+		return ;
+	temp = *way;
+	while (temp)
+	{
+		rfree = temp->content;
+		rfreeeee(&rfree);
+		tempn = temp->next;
+		free(temp);
+		temp = NULL;
+		temp = tempn;
+	}
+	*way = temp;
+}
 
 static void	freefist(t_list **links)
 {

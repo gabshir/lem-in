@@ -6,11 +6,21 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/13 21:17:40 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static void	ft_konnekt(t_list **links, size_t i)
+{
+	t_list	*temp;
+
+	temp = *links;
+	while (temp->next)
+		temp = temp->next;
+	temp->content_size = i;
+}
 
 static void	up_way(t_map *map, int l)
 {
