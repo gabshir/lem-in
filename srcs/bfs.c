@@ -6,7 +6,7 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:47:25 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/12 19:04:38 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 15:26:11 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,39 +59,6 @@ static void incmap(t_map *map)
 	map->end.f = 0;
 }
 
-t_list *fiststart(t_list *start)
-{
-	t_list *temp;
-
-	temp = NULL;
-	while (start)
-	{
-		if (start->content_size == 8)
-			ft_lstpush(&temp, ft_lstnew_ptr(start->content));
-		start = start->next;
-	}
-	return (temp);
-}
-
-//t_list	*deque(t_list *que)
-//{
-//	t_list	*ptr;
-//
-//	ptr = que->next;
-//	free(que);
-//	que = NULL;
-//	return (ptr);
-//}
-t_list	*deque(t_list *que)
-{
-	t_list	*ptr;
-
-	ptr = que->next;
-	free(que);
-	que = NULL;
-	return (ptr);
-}
-
 int	shirina(t_map *map)
 {
 	t_room *read;
@@ -113,19 +80,10 @@ int	shirina(t_map *map)
 			if (read->n != map->end.n)
 				ft_uplistshirina(read, &up_list);
 			else
-				{
-					ft_lstdel(&obr, NULL);
-					ft_lstdel(&up_list, NULL);
-					return (1);
-				}
+				return (finishfree(&obr, &up_list));
 		}
 		obr = deque(obr);
-		if (obr == NULL)
-		{
-			obr = up_list;
-			gl++;
-			up_list = NULL;
-		}
+		up_gl(&obr, &up_list, &gl);
 	}
 	return (0);
 }

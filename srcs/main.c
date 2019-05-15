@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 20:27:32 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 14:58:11 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	get_map_info(t_map *map, int fd)
 		}
 		free(line);
 	}
-	free(line);
+	if (line)
+		free(line);
 }
 
 void	map_initialisation(t_map *map)
@@ -131,7 +132,17 @@ int		main(int ac, char **av)
 	// ft_printf("########\n");
 	// ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
 	// visualization(&map);
+	if (map.rooms == NULL)
+	{
+		ft_printf("ERROR. FREE MAP\n");
+		exit(1);
+	}
 	way(&map, 0);
+	if (map.way == NULL)
+	{
+		ft_printf("ERROR. No links thitf start - finish\n");
+		exit(1);
+	}
 	// ft_printway(map.way); // debug
 	ant_flow(&map);
 	// visualization(&map);

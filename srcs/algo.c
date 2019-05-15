@@ -6,22 +6,30 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/12 20:11:57 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	way(t_map *map, int l)
+static void	ft_konnekt(t_list **links, size_t i)
 {
-	int i;
+	t_list	*temp;
+
+	temp = *links;
+	while (temp->next)
+		temp = temp->next;
+	temp->content_size = i;
+}
+
+static void	up_way(t_map *map, int l)
+{
 	t_list *combnow;
 
 	combnow = NULL;
-	i = 0;
 	while (shirina(map) == 1)
 	{
-		ft_saveway(&map->end, &combnow, 0);
+		ft_saveway(&map->end, &combnow, 0, map->end.gl);
 		restorroom(map);
 	}
 	if (combnow != NULL)
@@ -30,16 +38,39 @@ void	way(t_map *map, int l)
 		ft_konnekt(&map->way, l);
 		combnow = NULL;
 	}
-	restisp(&map->way);
-	restorroom(map);
+}
+
+static int up_cutway(t_map *map)
+{
+	t_list *combnow;
+	int i;
+
+	combnow = NULL;
+	i = 0;
+	map->start.gl = 0;
+	map->start.f = 1;
 	while (shirinablok(map) == 1 && i == 0)
 	{
-		ft_saveway(&map->end, &combnow, 1);
+		map->start.gl = 0;
+		map->start.f = 1;
+		map->end.isp = 1;
+		ft_saveway(&map->end, &combnow, 1, map->end.gl);
 		restorroom(map);
 		i = path_analysis(&map->way);
 	}
 	if (combnow)
 		ft_lstpush(&map->cut, ft_lstnew_ptr(combnow));
+	return (i);
+}
+
+void	way(t_map *map, int l)
+{
+	int i;
+
+	up_way(map, l);
+	restisp(&map->way);
+	restorroom(map);
+	i = up_cutway(map);
 	restisp(&map->cut);
 	restornap(&map->way);
 	restornap(&map->cut);
