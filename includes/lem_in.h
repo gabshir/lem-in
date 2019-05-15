@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/13 15:50:52 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/15 14:42:34 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # define ROOM_Q		map->room_q
 # define C_QUANT	map->comb.quant
 # define C_STEPS	map->comb.steps
-# define C_WAY		map->comb.way_arr
+// # define C_WAY		map->comb.way_arr
+# define C_WAY		map->comb.paths
 # define C_SUM_LEN	map->comb.sum_len
 
 /*
@@ -69,12 +70,21 @@ typedef enum	e_sort
 	not_sorted, sorted
 }				e_sort;
 
+typedef struct	s_path
+{
+	int		len;
+	int		last_i;
+	int		ants;
+	t_room	**rooms;
+}				t_path;
+
 typedef	struct	s_comb
 {
 	int		quant;
 	int		sum_len;
 	int		steps;
-	t_list	**way_arr;
+	// t_list	**way_arr;
+	t_path	*paths;
 }				t_comb;
 
 typedef struct	s_room
@@ -94,7 +104,7 @@ typedef struct	s_map
 	int		error;
 	int		ants;
 	int		room_q;
-	float	connectivity;
+	// float	connectivity;
 	t_room	start;
 	t_room	end;
 	t_room	**rooms;

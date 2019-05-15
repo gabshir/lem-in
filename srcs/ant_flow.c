@@ -6,11 +6,55 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/13 22:02:23 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/15 15:30:06 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+// static void	make_best_combination(t_map *map)
+// {
+// 	t_list	*comb_ptr;
+// 	t_list	*way;
+// 	size_t	comb_number;
+// 	int		sum_len;
+// 	int		cur_steps;
+// 	int		way_q;
+
+// 	comb_ptr = map->way;
+// 	C_STEPS = INT_MAX;
+// 	while (comb_ptr)
+// 	{
+// 		way = comb_ptr->content;
+// 		sum_len = 0;
+// 		way_q = 0;
+// 		while (way)
+// 		{
+// 			sum_len += ft_lstlen(way->content) - 1;
+// 			cur_steps = (map->ants + sum_len - 1) / ++way_q;
+// 			if (cur_steps < C_STEPS)
+// 			{
+// 				comb_number = comb_ptr->content_size;
+// 				C_QUANT = way_q;
+// 				C_STEPS = cur_steps;
+// 				C_SUM_LEN = sum_len;
+// 			}
+// 			way = way->next;
+// 		}
+// 		comb_ptr = comb_ptr->next;
+// 	}
+// 	SECURE_MALLOC(C_WAY = ft_memalloc(sizeof(t_list*) * (C_QUANT + 1)));
+// 	comb_ptr = map->way;
+// 	while (comb_ptr->content_size != comb_number)
+// 		comb_ptr = comb_ptr->next;
+// 	way = comb_ptr->content;
+// 	way_q = 0;
+// 	while (way_q < C_QUANT)
+// 	{
+// 		C_WAY[way_q++] = way->content;
+// 		way = way->next;
+// 	}
+// }
 
 static void	make_best_combination(t_map *map)
 {
@@ -43,15 +87,24 @@ static void	make_best_combination(t_map *map)
 		}
 		comb_ptr = comb_ptr->next;
 	}
-	SECURE_MALLOC(C_WAY = ft_memalloc(sizeof(t_list*) * (C_QUANT + 1)));
 	comb_ptr = map->way;
 	while (comb_ptr->content_size != comb_number)
 		comb_ptr = comb_ptr->next;
 	way = comb_ptr->content;
+	SECURE_MALLOC(C_WAY = ft_memalloc(sizeof(t_path) * (C_QUANT + 1)));
 	way_q = 0;
 	while (way_q < C_QUANT)
 	{
-		C_WAY[way_q++] = way->content;
+		// C_WAY[way_q++] = way->content;
+		C_WAY[way_q].len = ft_lstlen(way->content) - 1;
+		SECURE_MALLOC(C_WAY[way_q].rooms = ft_memalloc(sizeof(t_room*) * (C_WAY[way_q].len + 1)));
+		t_list	*ptr = way->content;
+		int	i = -1;
+		while (ptr)
+		{
+			C_WAY[way_q].rooms[++i] = ptr->content;
+			ptr = ptr->next;
+		}
 		way = way->next;
 	}
 }
