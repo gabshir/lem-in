@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/16 18:47:40 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 21:14:04 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct	s_room
 	int 	isp;
 	int		gl;
 	t_list	*links;
-
 	int		ant_num;
 }				t_room;
 
@@ -97,7 +96,6 @@ typedef	struct	s_comb
 	int		quant;
 	int		sum_len;
 	int		steps;
-	// t_list	**way_arr;
 	t_path	*paths;
 }				t_comb;
 
@@ -106,14 +104,12 @@ typedef struct	s_map
 	size_t	error;
 	size_t	ants;
 	size_t	room_q;
-	// float	connectivity;
 	t_room	start;
 	t_room	end;
 	t_room	**rooms;
 	t_list	*way;
 	t_list	*cut;
 	t_comb	comb;
-
 	t_mlx	mlx;
 }				t_map;
 
@@ -163,6 +159,7 @@ void	up_gl(t_list **obr, t_list **up_list, int *gl);
 */
 
 void    ant_flow(t_map *map);
+void	make_best_combination(t_map *map);
 
 /*
 **	Error

@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/16 18:54:02 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 21:04:23 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ void	map_initialisation(t_map *map)
 	map->rooms = NULL;
 	map->way = NULL;
 	map->cut = NULL;
+}
+
+static void	free_comb(t_map *map)
+{
+	int	i;
+
+	i = -1;
+	while (++i < C_QUANT)
+		free(C_WAY[i].rooms);
+	free(C_WAY);
 }
 
 void	ft_globalfree(t_map *map)
@@ -45,6 +55,7 @@ void	ft_globalfree(t_map *map)
 		map->rooms[i] = NULL;
 		i++;
 	}
+	free_comb(map);
 	free(map->rooms);
 	map->rooms = NULL;
 	freeway(&map->way);
@@ -73,7 +84,6 @@ int		main(int ac, char **av)
 		ft_globalfree(&map);
 		exit(1);
 	}
-	// ft_printway(map.way); // debug
 	ant_flow(&map);
 	if (ac == 2 && !ft_strcmp(av[1], "-v"))
 		visualization(&map);

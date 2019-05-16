@@ -6,7 +6,7 @@
 #    By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/08 02:27:55 by jwillem-          #+#    #+#              #
-#    Updated: 2019/05/11 16:45:28 by jwillem-         ###   ########.fr        #
+#    Updated: 2019/05/16 21:15:17 by jwillem-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ OBJDIR = obj/
 
 FILES = main	rooms	val_tools	algo	tools	bfs	\
 	freelinks	visual	ant_flow	blokway	restorroom	\
-	errors	debug	patch_analysis	saveway get_map_info #test
+	errors	debug	patch_analysis	saveway get_map_info \
+	combination
 SRC = $(addprefix $(SRCDIR), $(addsuffix .c,$(FILES)))
 OBJ = $(addprefix $(OBJDIR),$(addsuffix .o,$(FILES)))
 
@@ -72,7 +73,7 @@ re: fclean
 	@$(MAKE) all
 
 test-bigs:
-	./generator --big-superposition > test1; ./lem-in test1
+	./generator --big-superposition > test1; ./lem-in < test1
 
 test-big:
-	./generator --big > test1; ./lem-in test1
+	./generator --big > test1; ./lem-in < test1
