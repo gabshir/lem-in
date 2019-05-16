@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 21:40:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 18:01:49 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 14:33:36 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	print_best_comb(t_map *map)
 		sum_len += C_WAY[w_idx].len;
 		steps = (map->ants + sum_len - 1) / (w_idx + 1);
 		ft_printf("%d ants will be distributed to this way.\n", C_WAY[w_idx].ants);
-		// print_path(&C_WAY[w_idx]);
+		print_path(&C_WAY[w_idx]);
 		ft_printf("Length of way = %d\n", C_WAY[w_idx].len);
 		ft_printf("All %d ants will be transported for %d steps.\n", \
 			map->ants, steps);
