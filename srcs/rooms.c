@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 18:32:41 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:35:07 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	validate_axis(t_map *map, t_room *room, char *splitstr, char axis)
 	}
 	else
 		str = NULL;
-	if (ft_strcmp(splitstr, str))
+	if (ft_strcmp(splitstr, str) || room->x < 0 || room->y < 0)
 	{
 		ft_printf(ER "Incorrect %c coordinate for room.\n", axis);
 		map->error++;
@@ -47,6 +47,8 @@ void	room_name_and_coords(t_map *map, t_room *room, char *line)
 		ft_printf(ER "Illegal room name.\n");
 		map->error++;
 	}
+	room->x = 0;
+	room->y = 0;
 	validate_axis(map, room, split[1], 'X');
 	validate_axis(map, room, split[2], 'Y');
 	room->f = 0;
