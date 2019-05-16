@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/15 19:26:36 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:27:14 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static	void start_map_info(t_map *map, int fd, char *line)
 	}
 }
 
-static void	organize_room(e_sort *time_to_sort, t_map *map, char *line, t_list *room_list)
+static void	organize_room
+	(e_sort *time_to_sort, t_map *map, char *line, t_list *room_list)
 {
 	if (*time_to_sort == not_sorted)
 	{
@@ -51,7 +52,8 @@ static void	organize_room(e_sort *time_to_sort, t_map *map, char *line, t_list *
 	organize_links(map, line);
 }
 
-static	int lstadd_room(e_sort time_to_sort, t_list **room_list, t_map *map, char *line)
+static	int lstadd_room
+	(e_sort time_to_sort, t_list **room_list, t_map *map, char *line)
 {
 	if (time_to_sort == sorted)
 	{
