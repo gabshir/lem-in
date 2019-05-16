@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 21:42:09 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:54:02 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,14 @@ void	ft_globalfree(t_map *map)
 int		main(int ac, char **av)
 {
 	t_map	map;
-	int		fd;
-	// int i;
 
-	ac = 0;
-	// i = 0;
-	fd = ft_read_file(av[1]);
-	if (fd == -1)
-		exit(1);
 	map_initialisation(&map);
-	get_map_info(&map, fd);
+	get_map_info(&map);
 	if (map.error)
 	{
 		ft_printf("\nBe careful, you've made %d mistakes in map.\n", map.error);
 		exit(1);
 	}
-	// ft_printf("########\n");
-	// ft_printf("\nConnectivity = %f\n", map.connectivity); // debug
-	// visualization(&map);
 	if (map.rooms == NULL)
 	{
 		ft_printf("ERROR. FREE MAP\n");
@@ -85,7 +75,8 @@ int		main(int ac, char **av)
 	}
 	// ft_printway(map.way); // debug
 	ant_flow(&map);
-//	visualization(&map);
+	if (ac == 2 && !ft_strcmp(av[1], "-v"))
+		visualization(&map);
 	ft_globalfree(&map);
 	return (0);
 }
