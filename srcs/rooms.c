@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/16 18:35:07 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:52:57 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ void	check_hash(t_map *map, char *line, char *edge, char *counter_edge)
 	}
 }
 
-void	start_init(t_map *map, char *line, int fd)
+void	start_init(t_map *map, char *line)
 {
 	if (map->start.name == NULL)
 	{
-		if (get_next_line(fd, &line) > 0)
+		if (get_next_line(0, &line) > 0)
 		{
 			ft_printf("%s\n", line);
 			check_hash(map, line, "##start", "##end");
@@ -106,11 +106,11 @@ void	start_init(t_map *map, char *line, int fd)
 	}
 }
 
-void	end_init(t_map *map, char *line, int fd)
+void	end_init(t_map *map, char *line)
 {
 	if (map->end.name == NULL)
 	{
-		if (get_next_line(fd, &line) > 0)
+		if (get_next_line(0, &line) > 0)
 		{
 			ft_printf("%s\n", line);
 			check_hash(map, line, "##end", "##start");

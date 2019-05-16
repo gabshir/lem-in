@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/16 18:27:14 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:47:14 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	quantity_of_ants(t_map *map, char *line)
 	str = NULL;
 }
 
-static	void start_map_info(t_map *map, int fd, char *line)
+static	void start_map_info(t_map *map, char *line)
 {
-	if (get_next_line(fd, &line) == 1)
+	if (get_next_line(0, &line) == 1)
 	{
 		quantity_of_ants(map, line);
 		free(line);
@@ -65,7 +65,7 @@ static	int lstadd_room
 	return (0);
 }
 
-void	get_map_info(t_map *map, int fd)
+void	get_map_info(t_map *map)
 {
 	char	*line;
 	t_list	*room_list;
@@ -74,14 +74,14 @@ void	get_map_info(t_map *map, int fd)
 	room_list = NULL;
 	line = NULL;
 	time_to_sort = not_sorted;
-	start_map_info(map, fd, line);
-	while (get_next_line(fd, &line) > 0)
+	start_map_info(map, line);
+	while (get_next_line(0, &line) > 0)
 	{
 		ft_printf("%s\n", line);
 		if (!ft_strcmp(line, "##start"))
-			start_init(map, line, fd);
+			start_init(map, line);
 		else if (!ft_strcmp(line, "##end"))
-			end_init(map, line, fd);
+			end_init(map, line);
 		else if (ft_strchr(line, ' ') && ft_strncmp(line, "#", 1))
 		{
 			if (lstadd_room(time_to_sort, &room_list, map, line) == 1)

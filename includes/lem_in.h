@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/16 14:53:26 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:47:40 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,12 @@ typedef struct	s_map
 	t_mlx	mlx;
 }				t_map;
 
-void	get_map_info(t_map *map, int fd);
+void	get_map_info(t_map *map);
 void	validate_axis(t_map *map, t_room *room, char *splitstr, char axis);
 void	room_name_and_coords(t_map *map, t_room *room, char *line);
 void	check_hash(t_map *map, char *line, char *edge, char *counter_edge);
-void	start_init(t_map *map, char *line, int fd);
-void	end_init(t_map *map, char *line, int fd);
+void	start_init(t_map *map, char *line);
+void	end_init(t_map *map, char *line);
 t_room	*create_room(t_map *map, char *line);
 void	put_ptr_in_array(int penultimate, t_room **rooms, t_room *room);
 t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list);
