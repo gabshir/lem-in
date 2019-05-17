@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 14:07:24 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:12:00 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int		main(int ac, char **av)
 		exit(1);
 	}
 	ant_flow(&map);
-//	if (ac == 2 && !ft_strcmp(av[1], "-v"))
-//		visualization(&map);
+	if (ac == 2 && !ft_strcmp(av[1], "-v"))
+		visualization(&map);
 	ft_globalfree(&map);
 	return (0);
 }

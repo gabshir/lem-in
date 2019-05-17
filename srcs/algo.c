@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 16:20:43 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void	way(t_map *map, int l)
 {
 	int i;
 
+	map->start.isp = 0;
+	map->start.f = 1;
+	map->end.f = 0;
+	map->end.isp = 0;
 	up_way(map, l);
 	restisp(&map->way);
 	restorroom(map);

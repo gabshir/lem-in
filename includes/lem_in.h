@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 13:25:03 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 16:07:55 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ typedef struct	s_map
 void	get_map_info(t_map *map);
 void	validate_axis(t_room *room, char *splitstr, char axis);
 void	room_name_and_coords(t_room *room, char *line);
-void	check_hash(char *line, char *edge, char *counter_edge);
 void	start_init(t_map *map, char *line);
 void	end_init(t_map *map, char *line);
 t_room	*create_room(t_map *map, char *line);
@@ -163,8 +162,9 @@ void	make_best_combination(t_map *map);
 **	Error
 */
 
-int    memory_error(void);
-
+int		memory_error(void);
+void	error_specify_room(char *str);
+void	dublication_room(char *str);
 /*
 **	Debug
 */

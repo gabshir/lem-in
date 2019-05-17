@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/17 13:13:24 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 15:59:02 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,16 @@ static void	quantity_of_ants(t_map *map, char *line)
 {
 	char	*str;
 
+	if (ft_strcmp(line, "##end") == 0 || ft_strcmp(line, "##start") == 0)
+	{
+		ft_printf("ERROR COMAND\n");
+		free(line);
+		exit(1);
+	}
 	map->ants = ft_atoi(line);
 	str = ft_itoa(map->ants);
+	if (line[0] && line[0] == '#')
+		return ;
 	if (ft_strcmp(str, line) != 0 || map->ants < 1)
 	{
 		ft_printf(ER "Incorrect number of ants!");
@@ -32,7 +40,7 @@ static void	quantity_of_ants(t_map *map, char *line)
 
 static	void start_map_info(t_map *map, char *line)
 {
-	if (get_next_line(0, &line) == 1)
+	while (map->ants == 0 && get_next_line(0, &line) == 1)
 	{
 		quantity_of_ants(map, line);
 		free(line);
