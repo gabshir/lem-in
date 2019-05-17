@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/16 18:47:14 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/17 13:13:24 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	quantity_of_ants(t_map *map, char *line)
 
 	map->ants = ft_atoi(line);
 	str = ft_itoa(map->ants);
-	if (ft_strcmp(str, line) || map->ants < 1)
+	if (ft_strcmp(str, line) != 0 || map->ants < 1)
 	{
 		ft_printf(ER "Incorrect number of ants!");
-		map->error++;
+		exit(1);
 	}
 	else
 		ft_printf("%s\n", line);
@@ -45,6 +45,11 @@ static void	organize_room
 {
 	if (*time_to_sort == not_sorted)
 	{
+		if (map->end.name == NULL || map->start.name == NULL)
+		{
+			ft_printf("Start or Finish not found \n");
+			exit(1);
+		}
 		map->rooms = sorted_rooms_ptr_array(map, &room_list);
 		check_name_duplicates(map);
 	}
@@ -58,8 +63,7 @@ static	int lstadd_room
 	if (time_to_sort == sorted)
 	{
 		ft_printf(ER "No more rooms after connections have started!\n");
-		map->error++;
-		return (1);
+		exit(1);
 	}
 	ft_lstadd(room_list, ft_lstnew_ptr(create_room(map, line)));
 	return (0);
@@ -90,6 +94,7 @@ void	get_map_info(t_map *map)
 		else if (ft_strchr(line, '-') && ft_strncmp(line, "#", 1))
 			organize_room(&time_to_sort, map, line, room_list);
 		free(line);
+		line = NULL;
 	}
 	if (line)
 		free(line);
