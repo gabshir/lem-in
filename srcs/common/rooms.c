@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 13:25:59 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 19:29:04 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,76 +66,77 @@ void	room_name_and_coords(t_room *room, char *line)
 	freesplit(split);
 }
 
-void	check_hash(char *line, char *edge, char *counter_edge)
+int		check_hash(char *line, char *edge, char *counter_edge)
 {
-	if (!ft_strncmp(line, "#", 1))
+	if (!ft_strcmp(line, counter_edge))
 	{
-		if (!ft_strcmp(line, counter_edge))
-			ft_printf(ER "Start & End rooms must not be the same one!\n");
-		else if (!ft_strcmp(line, edge))
-			ft_printf(ER "What do you need 2 %s-lines in a row for?\n", edge);
-		else if (!ft_strncmp(line, "##", 2))
-			ft_printf(ER "No other ##lines allowed, esp-ly after %s.\n", edge);
-		else
-			ft_printf(ER "Put comment above the %s-line, please.\n", edge);
+		ft_printf(ER "Start & End rooms must not be the same one!\n");
 		exit(1);
 	}
+	else if (!ft_strcmp(line, edge))
+	{
+		ft_printf(ER "What do you need 2 %s-lines in a row for?\n", edge);
+		exit(1);
+	}
+	else if (line[0] && line[0] == '#')
+		return (0);
+	return (1);
 }
 
-void	start_init(t_map *map, char *line)
+void	start_init(t_map *map, char *line, int print)
 {
 	if (map->start.name == NULL)
 	{
 		if (get_next_line(0, &line) > 0)
 		{
-			ft_printf("%s\n", line);
-			check_hash(line, "##start", "##end");
-			map->start.links = NULL;
-			map->start.isp = 0;
-			room_name_and_coords(&map->start, line);
-			map->start.f = 1;
-			map->room_q++;
+			print && ft_printf("%s\n", line);
+			if (check_hash(line, "##end", "##start") == 0)
+			{
+				free(line);
+				line = NULL;
+				start_init(map, line, print);
+			}
+			if (map->start.name == NULL)
+			{
+				map->start.links = NULL;
+				room_name_and_coords(&map->start, line);
+				map->room_q++;
+			}
 		}
 		else
-		{
-			ft_printf(ER "You didn't specify the Start room.\n");
-			exit(1);
-		}
+			error_specify_room("Start");
 		free(line);
 	}
 	else
-	{
-		ft_printf(ER "You've already specified the Start room.\n");
-		exit(1);
-	}
+		dublication_room("Start");
 }
 
-void	end_init(t_map *map, char *line)
+void	end_init(t_map *map, char *line, int print)
 {
 	if (map->end.name == NULL)
 	{
 		if (get_next_line(0, &line) > 0)
 		{
-			ft_printf("%s\n", line);
-			check_hash(line, "##end", "##start");
-			map->end.links = NULL;
-			map->end.f = 0;
-			map->end.isp = 0;
-			room_name_and_coords(&map->end, line);
-			map->room_q++;
+			print && ft_printf("%s\n", line);
+			if (check_hash(line, "##end", "##start") == 0)
+			{
+				free(line);
+				line = NULL;
+				end_init(map, line, print);
+			}
+			if (map->end.name == NULL)
+			{
+				map->end.links = NULL;
+				room_name_and_coords(&map->end, line);
+				map->room_q++;
+			}
 		}
 		else
-		{
-			ft_printf(ER "You didn't specify the Start room.\n");
-			exit(1);
-		}
+			error_specify_room("End");
 		free(line);
 	}
 	else
-	{
-		ft_printf(ER "You've already specified the End room.\n");
-		exit(1);
-	}
+		dublication_room("End");
 }
 
 t_room	*create_room(t_map *map, char *line)

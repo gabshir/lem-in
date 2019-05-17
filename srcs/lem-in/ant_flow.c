@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/16 21:14:45 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:36:25 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void		ant_flow(t_map *map)
 	distribute_ants(map);
 	wi = -1;
 	cycle = -1;
+	write(1, "\n", 1);
 	while (++wi < C_QUANT && map->ants)
 	{
 		show_ants_locations(map, wi, &cycle);

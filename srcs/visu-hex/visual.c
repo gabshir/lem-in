@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 16:53:55 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 21:56:14 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ static void	draw_rooms(t_map *map)
 	}
 }
 
-static int	visual_hook(t_map *map)
+static int	draw_map(t_map *map)
 {
     int	i;
 	
@@ -183,20 +183,50 @@ static int	close_win(int i)
 	exit(i);
 }
 
-void   		visualization(t_map *map)
+static void	map_mlx_init(t_map *map)
 {
-    map->mlx.mlx_ptr = mlx_init();
+	map->mlx.mlx_ptr = mlx_init();
 	map->mlx.win = mlx_new_window(map->mlx.mlx_ptr, W_WIDTH, W_HEIGHT, \
 		"The Map.");
 	map->mlx.pic.img_ptr = mlx_new_image(map->mlx.mlx_ptr, W_WIDTH, W_HEIGHT);
 	map->mlx.pic.data = (int *)mlx_get_data_addr(map->mlx.pic.img_ptr, \
 		&map->mlx.pic.bpp, &map->mlx.pic.size_l, &map->mlx.pic.endian);
-	// stk->mlx.int_height = W_HEIGHT / stk->alen;
 	map->mlx.indent = 50;
 	map->mlx.x_len = coor_len(map->rooms, 'x', map->mlx.indent);
 	map->mlx.y_len = coor_len(map->rooms, 'y', map->mlx.indent);
-	// stk->mlx.int_width = W_WIDTH / 2 / max_abs(stk) - 1;
-	mlx_loop_hook(map->mlx.mlx_ptr, visual_hook, map);
+}
+
+static void	visualization(t_map *map)
+{
+	map_mlx_init(map);
+	draw_map(map);
+	mlx_do_key_autorepeaton(map->mlx.mlx_ptr);
+	// mlx_loop_hook(map->mlx.mlx_ptr, visual_hook, map);
 	mlx_hook(map->mlx.win, 17, 1L << 17, close_win, 0);
+	
 	mlx_loop(map->mlx.mlx_ptr);
+}
+
+static void	map_vis_init(t_map *map)
+{
+	map->ants = 0;
+	map->start.name = NULL;
+	map->end.name = NULL;
+	map->room_q = 0;
+	map->rooms = NULL;
+	map->way = NULL;
+	map->cut = NULL;
+}
+
+int	main(int ac, char **av)
+{
+	t_map	map;
+	int		fd = open(av[1], O_RDONLY);
+	
+	ac = 0;
+	map_vis_init(&map);
+	// get_map_info(&map, 0);
+	get_vis_info(fd, &map, 0); // test
+	visualization(&map);
+	return (0);
 }
