@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 16:07:55 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:02:42 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,10 @@ typedef struct	s_map
 	t_mlx	mlx;
 }				t_map;
 
+/*
+ * get_map_info
+ */
+
 void	get_map_info(t_map *map);
 void	validate_axis(t_room *room, char *splitstr, char axis);
 void	room_name_and_coords(t_room *room, char *line);
@@ -124,26 +128,37 @@ void	check_name_duplicates(t_map *map);
 void	create_link(t_map *map, char *name_fst, char *name_snd);
 void	organize_links(t_map *map, char *line);
 int		check_existing_links(t_list *links, char *r_name);
-void	error_create_links(char *str);
 
-int		shirina(t_map *map);
+/*
+ * ALGORITM
+ */
+
 void	way(t_map *map, int l);
-void	restorroom(t_map *map);
+int		shirina(t_map *map);
 t_list *fiststart(t_list *start);
-t_list	*deque(t_list *que);
 void	ft_listaddshirina(t_list **up_list, t_room *read);
-void	ft_freedown(t_list **links, int n);
 int		shirinablok(t_map *map);
-
 int		path_analysis(t_list **combo);
+void	ft_saveway(t_room *end, t_list **way, int f, int d);
+void	up_gl(t_list **obr, t_list **up_list, int *gl);
+
+/*
+ * Restor Room
+ */
+
 void	restisp(t_list **way);
 void	ft_restor(t_list **links);
 void	restornap(t_list **way);
+void	restorroom(t_map *map);
+
+/*
+ * Free for Algoritms
+ */
+
 void	freeway(t_list **way);
-void	ft_saveway(t_room *end, t_list **way, int f, int d);
 int		finishfree(t_list **obr, t_list **up_list);
-void	up_gl(t_list **obr, t_list **up_list, int *gl);
-// int		links_quantity(t_room *room);
+t_list	*deque(t_list *que);
+void	ft_freedown(t_list **links, int n);
 
 /*
 **	Tools
@@ -165,6 +180,7 @@ void	make_best_combination(t_map *map);
 int		memory_error(void);
 void	error_specify_room(char *str);
 void	dublication_room(char *str);
+void	error_create_links(char *str);
 /*
 **	Debug
 */
