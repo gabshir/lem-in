@@ -6,7 +6,7 @@
 /*   By: jwillem- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 18:05:20 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 13:58:59 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char		*ft_wordrec(const char *s, char c, size_t *i)
 	char	*str;
 	size_t	l;
 
-	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(s))))
+	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1)))
 		return (NULL);
 	l = 0;
 	while (s[*i] && s[*i] != c)
@@ -55,7 +55,6 @@ static void		ft_freestrsplit(char **str, size_t j)
 		free(str[j--]);
 	free(str[j]);
 	free(str);
-	return ;
 }
 
 char			**ft_strsplit(char const *s, char c)

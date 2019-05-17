@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/16 21:54:37 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:24:34 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	map_initialisation(t_map *map)
 {
-	map->error = 0;
 	map->ants = 0;
 	map->start.name = NULL;
 	map->end.name = NULL;
@@ -67,11 +66,6 @@ int		main(int ac, char **av)
 
 	map_initialisation(&map);
 	get_map_info(&map);
-	if (map.error)
-	{
-		ft_printf("\nBe careful, you've made %d mistakes in map.\n", map.error);
-		exit(1);
-	}
 	if (map.rooms == NULL)
 	{
 		ft_printf("ERROR. FREE MAP\n");
@@ -85,8 +79,8 @@ int		main(int ac, char **av)
 		exit(1);
 	}
 	ant_flow(&map);
-	if (ac == 2 && !ft_strcmp(av[1], "-v"))
-		visualization(&map);
+//	if (ac == 2 && !ft_strcmp(av[1], "-v"))
+//		visualization(&map);
 	ft_globalfree(&map);
 	return (0);
 }

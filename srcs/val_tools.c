@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 14:14:38 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 20:02:35 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/17 13:41:41 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,22 @@ void	check_name_duplicates(t_map *map)
 {
 	size_t	i;
 	size_t	j;
-	size_t	duplicates;
 
 	i = 0;
 	j = 1;
-	duplicates = 0;
 	while (i < map->room_q)
 	{
 		while (j < map->room_q)
 		{
 			if (ft_strcmp(map->rooms[i]->name, map->rooms[i + j]->name) == 0)
 			{
-				duplicates++;
 				ft_printf(ER "Found dupl. for room %s\n", map->rooms[i]->name);
+				exit(1);
 			}
 			j++;
 		}
 		i++;
 	}
-	if (duplicates)
-		dublication(map, duplicates);
 }
 
 void	organize_links(t_map *map, char *line)
@@ -96,9 +92,12 @@ void	organize_links(t_map *map, char *line)
 	if (split[2])
 	{
 		ft_printf(ER "You've entered excess link info: %s.\n", split[2]);
-		map->error++;
-		freesplit(split);
-		return ;
+		exit(1);
+	}
+	if (split[0]== NULL || split[1] == NULL)
+	{
+		ft_printf("error pipes\n");
+		exit(1);
 	}
 	create_link(map, split[0], split[1]);
 	freesplit(split);
@@ -113,8 +112,7 @@ static t_room	*find_room_by_name(t_map *map, char *r_name,
 	if (first > last)
 	{
 		ft_printf(ER "Incorrect room name in link.\n");
-		map->error++;
-		return (NULL);
+		exit(1);
 	}
 	i = first + (last - first) / 2;
 	if (ft_strcmp(ROOMS[i]->name, r_name) > 0)
@@ -159,8 +157,8 @@ void	create_link(t_map *map, char *name_fst, char *name_snd)
 	else
 	{
 		if (!first)
-			error_create_links(map, name_fst);
+			error_create_links(name_fst);
 		if (!second)
-			error_create_links(map, name_snd);
+			error_create_links(name_snd);
 	}
 }
