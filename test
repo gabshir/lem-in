@@ -1,4 +1,4 @@
-8
+100
 amega 0 0
 ##start
 b 0 4
@@ -36,8 +36,39 @@ k-m
 
 L1-c L2-e L3-amega
 L1-f L4-c L2-h L5-e L3-d L6-amega
-L1-g L4-f L7-c L2-l L5-h L8-e L3-i L6-d
-L1-k L4-g L7-f L2-n L5-l L8-h L3-j L6-i
-L1-m L4-k L7-g L2-m L5-n L8-l L3-m L6-j
-L4-m L7-k L5-m L8-n L6-m
-L7-m L8-m
+L1-g L4-f L7-c L2-l L5-h L8-e L3-i L6-d L9-amega
+L1-k L4-g L7-f L10-c L2-n L5-l L8-h L11-e L3-j L6-i L9-d L12-amega
+L1-m L4-k L7-g L10-f L13-c L2-m L5-n L8-l L11-h L14-e L3-m L6-j L9-i L12-d L15-amega
+L4-m L7-k L10-g L13-f L16-c L5-m L8-n L11-l L14-h L17-e L6-m L9-j L12-i L15-d L18-amega
+L7-m L10-k L13-g L16-f L19-c L8-m L11-n L14-l L17-h L20-e L9-m L12-j L15-i L18-d L21-amega
+L10-m L13-k L16-g L19-f L22-c L11-m L14-n L17-l L20-h L23-e L12-m L15-j L18-i L21-d L24-amega
+L13-m L16-k L19-g L22-f L25-c L14-m L17-n L20-l L23-h L26-e L15-m L18-j L21-i L24-d L27-amega
+L16-m L19-k L22-g L25-f L28-c L17-m L20-n L23-l L26-h L29-e L18-m L21-j L24-i L27-d L30-amega
+L19-m L22-k L25-g L28-f L31-c L20-m L23-n L26-l L29-h L32-e L21-m L24-j L27-i L30-d L33-amega
+L22-m L25-k L28-g L31-f L34-c L23-m L26-n L29-l L32-h L35-e L24-m L27-j L30-i L33-d L36-amega
+L25-m L28-k L31-g L34-f L37-c L26-m L29-n L32-l L35-h L38-e L27-m L30-j L33-i L36-d L39-amega
+L28-m L31-k L34-g L37-f L40-c L29-m L32-n L35-l L38-h L41-e L30-m L33-j L36-i L39-d L42-amega
+L31-m L34-k L37-g L40-f L43-c L32-m L35-n L38-l L41-h L44-e L33-m L36-j L39-i L42-d L45-amega
+L34-m L37-k L40-g L43-f L46-c L35-m L38-n L41-l L44-h L47-e L36-m L39-j L42-i L45-d L48-amega
+L37-m L40-k L43-g L46-f L49-c L38-m L41-n L44-l L47-h L50-e L39-m L42-j L45-i L48-d L51-amega
+L40-m L43-k L46-g L49-f L52-c L41-m L44-n L47-l L50-h L53-e L42-m L45-j L48-i L51-d L54-amega
+L43-m L46-k L49-g L52-f L55-c L44-m L47-n L50-l L53-h L56-e L45-m L48-j L51-i L54-d L57-amega
+L46-m L49-k L52-g L55-f L58-c L47-m L50-n L53-l L56-h L59-e L48-m L51-j L54-i L57-d L60-amega
+L49-m L52-k L55-g L58-f L61-c L50-m L53-n L56-l L59-h L62-e L51-m L54-j L57-i L60-d L63-amega
+L52-m L55-k L58-g L61-f L64-c L53-m L56-n L59-l L62-h L65-e L54-m L57-j L60-i L63-d L66-amega
+L55-m L58-k L61-g L64-f L67-c L56-m L59-n L62-l L65-h L68-e L57-m L60-j L63-i L66-d L69-amega
+L58-m L61-k L64-g L67-f L70-c L59-m L62-n L65-l L68-h L71-e L60-m L63-j L66-i L69-d L72-amega
+L61-m L64-k L67-g L70-f L73-c L62-m L65-n L68-l L71-h L74-e L63-m L66-j L69-i L72-d L75-amega
+L64-m L67-k L70-g L73-f L76-c L65-m L68-n L71-l L74-h L77-e L66-m L69-j L72-i L75-d L78-amega
+L67-m L70-k L73-g L76-f L79-c L68-m L71-n L74-l L77-h L80-e L69-m L72-j L75-i L78-d L81-amega
+L70-m L73-k L76-g L79-f L82-c L71-m L74-n L77-l L80-h L83-e L72-m L75-j L78-i L81-d L84-amega
+L73-m L76-k L79-g L82-f L85-c L74-m L77-n L80-l L83-h L86-e L75-m L78-j L81-i L84-d L87-amega
+L76-m L79-k L82-g L85-f L88-c L77-m L80-n L83-l L86-h L89-e L78-m L81-j L84-i L87-d L90-amega
+L79-m L82-k L85-g L88-f L91-c L80-m L83-n L86-l L89-h L92-e L81-m L84-j L87-i L90-d L93-amega
+L82-m L85-k L88-g L91-f L94-c L83-m L86-n L89-l L92-h L95-e L84-m L87-j L90-i L93-d L96-amega
+L85-m L88-k L91-g L94-f L97-c L86-m L89-n L92-l L95-h L98-e L87-m L90-j L93-i L96-d L99-amega
+L88-m L91-k L94-g L97-f L100-c L89-m L92-n L95-l L98-h L90-m L93-j L96-i L99-d
+L91-m L94-k L97-g L100-f L92-m L95-n L98-l L93-m L96-j L99-i
+L94-m L97-k L100-g L95-m L98-n L96-m L99-j
+L97-m L100-k L98-m L99-m
+L100-m

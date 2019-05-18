@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 21:05:41 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 00:18:50 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define END		0x0000FF
 # define COMMON		0x000000
 # define NAME		0xCE26C9
+# define ANT		0x8B4513
 # define INDENT		map->mlx.indent
 
 typedef struct	s_img
@@ -109,7 +110,9 @@ typedef struct	s_map
 	t_list	*way;
 	t_list	*cut;
 	t_comb	comb;
+
 	t_mlx	mlx;
+	int		fd;
 }				t_map;
 
 /*
@@ -126,6 +129,7 @@ void	put_ptr_in_array(int penultimate, t_room **rooms, t_room *room);
 t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list);
 void	check_name_duplicates(t_map *map);
 void	create_link(t_map *map, char *name_fst, char *name_snd);
+t_room	*find_room_by_name(t_map *map, char *r_name, int first, int last);
 void	organize_links(t_map *map, char *line);
 int		check_existing_links(t_list *links, char *r_name);
 void	quantity_of_ants(t_map *map, char *line, int print);

@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 16:53:55 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 21:56:14 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 02:01:00 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,12 +196,76 @@ static void	map_mlx_init(t_map *map)
 	map->mlx.y_len = coor_len(map->rooms, 'y', map->mlx.indent);
 }
 
+static char	*get_ant_name(char *str)
+{
+	int		len;
+	int		i;
+	char	*number;
+
+	len = 0;
+	i = 0;
+	while (str[i++] != '-')
+		len++;
+	SECURE_MALLOC(number = malloc(sizeof(char) * (len + 1)));
+	number[len] = '\0';
+	str = ft_strchr(str, '-') - 1;
+	while (--len >= 0)
+		number[len] = *str--;
+	return (number);
+}
+
+static void	draw_ants(t_map *map, char **ants)
+{
+	int		i;
+	t_room	*room;
+	char	*number;
+	char	*r_name;
+
+	i = -1;
+	while (ants[++i])
+	{
+		r_name = ft_strchr(ants[i], '-') + 1;
+		if (!ft_strcmp(r_name, map->end.name))
+			room = ROOMS[ROOM_Q - 1];
+		else
+			room = find_room_by_name(map, r_name, 1, ROOM_Q - 1);
+		number = get_ant_name(ants[i]);
+		mlx_string_put(map->mlx.mlx_ptr, map->mlx.win, \
+			room->x * map->mlx.x_len, room->y * map->mlx.y_len, \
+			ANT, number);
+		free(number);
+	}
+}
+
+static int	press_space(int key, t_map *map)
+{
+	char	*line;
+	char	**ants;
+
+	line = NULL;
+	ants = NULL;
+	if (key == 49)
+	{
+		if (get_next_line(map->fd, &line) > 0)
+		{
+			ants = ft_strsplit(line, ' ');
+			draw_map(map);
+			draw_ants(map, ants);
+			freesplit(ants);
+			free(line);
+		}
+	}
+	return (0);
+}
+
 static void	visualization(t_map *map)
 {
 	map_mlx_init(map);
 	draw_map(map);
-	mlx_do_key_autorepeaton(map->mlx.mlx_ptr);
+	// mlx_do_key_autorepeaton(map->mlx.mlx_ptr);
 	// mlx_loop_hook(map->mlx.mlx_ptr, visual_hook, map);
+	// mlx_loop_hook(map->mlx.mlx_ptr, );
+	mlx_key_hook(map->mlx.win, press_space, map);
 	mlx_hook(map->mlx.win, 17, 1L << 17, close_win, 0);
 	
 	mlx_loop(map->mlx.mlx_ptr);
@@ -221,12 +285,13 @@ static void	map_vis_init(t_map *map)
 int	main(int ac, char **av)
 {
 	t_map	map;
-	int		fd = open(av[1], O_RDONLY);
-	
+
+	map.fd = open(av[1], O_RDONLY);	
 	ac = 0;
 	map_vis_init(&map);
 	// get_map_info(&map, 0);
-	get_vis_info(fd, &map, 0); // test
+	get_vis_info(map.fd, &map, 0); // test
+	
 	visualization(&map);
 	return (0);
 }

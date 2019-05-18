@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 19:32:56 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 21:04:02 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/18 22:37:52 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ void	get_vis_info(int fd, t_map *map, int print)
 	room_list = NULL;
 	line = NULL;
 	time_to_sort = not_sorted;
-	start_vis_info(fd, map, line, print);
+	start_vis_info(fd, map, line, print);	//test
 	while (get_next_line(fd, &line) > 0)
 	{
 		print && ft_printf("%s\n", line);
 		if (!ft_strcmp(line, "##start"))
-			v_start_init(fd, map, line, print); // test
+			v_start_init(fd, map, line, print);	// test
 		else if (!ft_strcmp(line, "##end"))
-			v_end_init(fd, map, line, print); // test
+			v_end_init(fd, map, line, print);	// test
 		else if (ft_strchr(line, ' ') && ft_strncmp(line, "#", 1))
 		{
 			if (lstadd_room(time_to_sort, &room_list, map, line) == 1)
@@ -108,7 +108,7 @@ void	get_vis_info(int fd, t_map *map, int print)
 		}
 		else if (ft_strchr(line, '-') && ft_strncmp(line, "#", 1))
 			organize_room(&time_to_sort, map, line, room_list);
-		if (!print && !ft_strlen(line))
+		else if (!print && !ft_strlen(line))
 			break ;
 		free(line);
 		line = NULL;

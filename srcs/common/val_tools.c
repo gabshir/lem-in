@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 14:14:38 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 17:43:30 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 01:39:56 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	organize_links(t_map *map, char *line)
 	freesplit(split);
 }
 
-static t_room	*find_room_by_name(t_map *map, char *r_name,
+t_room	*find_room_by_name(t_map *map, char *r_name,
 		int first, int last)
 {
 	t_room	*ptr;

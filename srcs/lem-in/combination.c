@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 21:12:15 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 14:51:03 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/18 22:19:14 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static size_t	check_best_global_comb(t_map *map, t_list *comb_ptr)
 	int		way_q;
 
 	way = comb_ptr->content;
-	comb_number = 0;
 	sum_len = 0;
 	way_q = 0;
 	while (way)
@@ -47,7 +46,6 @@ static t_list	*find_best_global_comb(t_map *map)
 
 	comb_ptr = map->way;
 	C_STEPS = INT_MAX;
-	comb_number = 0;
 	while (comb_ptr)
 	{
 		comb_number = check_best_global_comb(map, comb_ptr);
