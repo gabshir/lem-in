@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/19 00:18:50 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 02:07:44 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,6 @@ int		memory_error(void);
 void	error_specify_room(char *str);
 void	dublication_room(char *str);
 void	error_create_links(char *str);
-
 /*
 **	Debug
 */
