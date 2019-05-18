@@ -6,13 +6,13 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/17 15:59:02 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 02:04:43 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	quantity_of_ants(t_map *map, char *line)
+void	quantity_of_ants(t_map *map, char *line, int print)
 {
 	char	*str;
 
@@ -31,24 +31,24 @@ static void	quantity_of_ants(t_map *map, char *line)
 		ft_printf(ER "Incorrect number of ants!");
 		exit(1);
 	}
-	else
+	else if (print)
 		ft_printf("%s\n", line);
 	if (str)
 		free(str);
 	str = NULL;
 }
 
-static	void start_map_info(t_map *map, char *line)
+void start_map_info(t_map *map, char *line, int print)
 {
 	while (map->ants == 0 && get_next_line(0, &line) == 1)
 	{
-		quantity_of_ants(map, line);
+		quantity_of_ants(map, line, print);
 		free(line);
 		line = NULL;
 	}
 }
 
-static void	organize_room
+void	organize_room
 	(e_sort *time_to_sort, t_map *map, char *line, t_list *room_list)
 {
 	if (*time_to_sort == not_sorted)
@@ -65,7 +65,7 @@ static void	organize_room
 	organize_links(map, line);
 }
 
-static	int lstadd_room
+int lstadd_room
 	(e_sort time_to_sort, t_list **room_list, t_map *map, char *line)
 {
 	if (time_to_sort == sorted)
@@ -77,7 +77,7 @@ static	int lstadd_room
 	return (0);
 }
 
-void	get_map_info(t_map *map)
+void	get_map_info(t_map *map, int print)
 {
 	char	*line;
 	t_list	*room_list;
@@ -86,14 +86,14 @@ void	get_map_info(t_map *map)
 	room_list = NULL;
 	line = NULL;
 	time_to_sort = not_sorted;
-	start_map_info(map, line);
+	start_map_info(map, line, print);
 	while (get_next_line(0, &line) > 0)
 	{
-		ft_printf("%s\n", line);
+		print && ft_printf("%s\n", line);
 		if (!ft_strcmp(line, "##start"))
-			start_init(map, line);
+			start_init(map, line, print);
 		else if (!ft_strcmp(line, "##end"))
-			end_init(map, line);
+			end_init(map, line, print);
 		else if (ft_strchr(line, ' ') && ft_strncmp(line, "#", 1))
 		{
 			if (lstadd_room(time_to_sort, &room_list, map, line) == 1)

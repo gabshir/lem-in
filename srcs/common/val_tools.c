@@ -6,61 +6,11 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 14:14:38 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 13:41:41 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 01:39:56 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list)
-{
-	t_room	**rooms;
-	t_list	*ptr;
-	int	i;
-
-	if (!(rooms = (t_room**)ft_memalloc(sizeof(t_room*) * (map->room_q + 1))))
-	{
-		ft_printf(ER "Couldn't allocate memory.\n");
-		exit(1);
-	}
-	rooms[0] = &map->start;
-	rooms[map->room_q - 1] = &map->end;
-	rooms[map->room_q] = NULL;
-	ptr = *room_list;
-	while (ptr)
-	{
-		put_ptr_in_array(map->room_q - 2, rooms, (t_room*)ptr->content);
-		ptr = ptr->next;
-	}
-	i = -1;
-	while (rooms[++i])
-		rooms[i]->n = i;
-	ft_lstdel(room_list, NULL);
-	return (rooms);
-}
-
-void	put_ptr_in_array(int penultimate, t_room **rooms, t_room *room)
-{
-	int	i;
-	
-	i = 1;
-	while (i <= penultimate)
-	{
-		if (rooms[i])
-		{
-			if (ft_strcmp(room->name, rooms[i]->name) < 0)
-			{
-				rooms[i - 1] = room;
-				break ;
-			}
-			else if (ft_strcmp(room->name, rooms[i]->name) >= 0)
-				rooms[i - 1] = rooms[i];
-		}
-		i++;
-	}
-	if (i == penultimate + 1)
-		rooms[penultimate] = room;
-}
 
 void	check_name_duplicates(t_map *map)
 {
@@ -103,7 +53,7 @@ void	organize_links(t_map *map, char *line)
 	freesplit(split);
 }
 
-static t_room	*find_room_by_name(t_map *map, char *r_name,
+t_room	*find_room_by_name(t_map *map, char *r_name,
 		int first, int last)
 {
 	t_room	*ptr;

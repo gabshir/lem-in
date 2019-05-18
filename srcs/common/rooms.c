@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 16:20:59 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 02:07:15 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	room_name_and_coords(t_room *room, char *line)
 	freesplit(split);
 }
 
-static int	check_hash(char *line, char *edge, char *counter_edge)
+int		check_hash(char *line, char *edge, char *counter_edge)
 {
 	if (!ft_strcmp(line, counter_edge))
 	{
@@ -83,20 +83,18 @@ static int	check_hash(char *line, char *edge, char *counter_edge)
 	return (1);
 }
 
-
-
-void	start_init(t_map *map, char *line)
+void	start_init(t_map *map, char *line, int print)
 {
 	if (map->start.name == NULL)
 	{
 		if (get_next_line(0, &line) > 0)
 		{
-			ft_printf("%s\n", line);
+			print && ft_printf("%s\n", line);
 			if (check_hash(line, "##end", "##start") == 0)
 			{
 				free(line);
 				line = NULL;
-				start_init(map, line);
+				start_init(map, line, print);
 			}
 			if (map->start.name == NULL)
 			{
@@ -113,18 +111,18 @@ void	start_init(t_map *map, char *line)
 		dublication_room("Start");
 }
 
-void	end_init(t_map *map, char *line)
+void	end_init(t_map *map, char *line, int print)
 {
 	if (map->end.name == NULL)
 	{
 		if (get_next_line(0, &line) > 0)
 		{
-			ft_printf("%s\n", line);
+			print && ft_printf("%s\n", line);
 			if (check_hash(line, "##end", "##start") == 0)
 			{
 				free(line);
 				line = NULL;
-				end_init(map, line);
+				end_init(map, line, print);
 			}
 			if (map->end.name == NULL)
 			{
