@@ -6,13 +6,13 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 14:38:51 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/15 16:44:10 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:25:25 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	linksfree(t_list *links, t_room *readt, t_room *reads, int *f)
+static void		linksfree(t_list *links, t_room *readt, t_room *reads, int *f)
 {
 	t_room *temp;
 
@@ -33,7 +33,7 @@ static void	linksfree(t_list *links, t_room *readt, t_room *reads, int *f)
 	}
 }
 
-static void inc_patch_analysis
+static void		inc_patch_analysis
 	(t_room **readt, t_room **reads, t_list *way, t_list **links)
 {
 	readt[0] = way->content;
@@ -41,41 +41,35 @@ static void inc_patch_analysis
 	links[0] = reads[0]->links;
 }
 
-static t_list *last_combinations(t_list **combo, int *f)
+static t_list	*last_combinations(t_list **combo, int *f)
 {
 	t_list *last_combo;
 
 	f[0] = 0;
 	last_combo = *combo;
-	while(last_combo->next)
+	while (last_combo->next)
 		last_combo = last_combo->next;
 	return (last_combo);
 }
 
-int path_analysis(t_list **combo)
+int				path_analysis(t_list **combo)
 {
-	t_list *last_combo;
-	t_list *read_combo;
-	t_list *way;
-	t_room *readt;
-	t_room *reads;
-	t_list *links;
-	int f;
+	t_analiz t;
 
 	if (*combo == NULL)
 		return (0);
-	last_combo = last_combinations(combo, &f);
-	read_combo = last_combo->content;
-	while (read_combo)
+	t.last_combo = last_combinations(combo, &t.f);
+	t.read_combo = t.last_combo->content;
+	while (t.read_combo)
 	{
-		way = read_combo->content;
-		while (way->next)
+		t.way = t.read_combo->content;
+		while (t.way->next)
 		{
-			inc_patch_analysis(&readt, &reads, way, &links);
-			linksfree(links, readt, reads, &f);
-			way = way->next;
+			inc_patch_analysis(&t.readt, &t.reads, t.way, &t.links);
+			linksfree(t.links, t.readt, t.reads, &t.f);
+			t.way = t.way->next;
 		}
-		read_combo = read_combo->next;
+		t.read_combo = t.read_combo->next;
 	}
-	return (f);
+	return (t.f);
 }

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lem_in.h"
+#include "lem_in.h"
 
-int    memory_error(void)
+int		memory_error(void)
 {
-    ft_printf(ER "Couldn't allocate memory.\n");
+	ft_printf(ER "Couldn't allocate memory.\n");
 	exit(1);
-    return (1);
+	return (1);
 }
 
 void	error_create_links(char *str)

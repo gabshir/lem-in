@@ -6,13 +6,13 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 20:06:46 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:09:05 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void restisp(t_list **way)
+void		restisp(t_list **way)
 {
 	t_list *temp;
 	t_list *combway;
@@ -39,7 +39,7 @@ void restisp(t_list **way)
 	}
 }
 
-void	ft_restor(t_list **links)
+void		ft_restor(t_list **links)
 {
 	t_list	*temp;
 
@@ -51,7 +51,7 @@ void	ft_restor(t_list **links)
 	}
 }
 
-void	restornap(t_list **way)
+void		restornap(t_list **way)
 {
 	t_list *lastcomb;
 	t_list *linkcombo;
@@ -61,7 +61,7 @@ void	restornap(t_list **way)
 	if (*way == NULL)
 		return ;
 	lastcomb = *way;
-	while(lastcomb->next)
+	while (lastcomb->next)
 		lastcomb = lastcomb->next;
 	linkcombo = lastcomb->content;
 	while (linkcombo)
@@ -93,7 +93,7 @@ static void	ft_uplistfree(t_room *room, t_list **up_list)
 	}
 }
 
-void	restorroom(t_map *map)
+void		restorroom(t_map *map)
 {
 	t_list *obr;
 	t_list *up_list;

@@ -6,29 +6,29 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:24:28 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 18:36:25 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:23:39 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	sum_difference(t_map *map, int i)
+static int		sum_difference(t_map *map, int i)
 {
 	static int	sum_diff;
-	
+
 	sum_diff += C_WAY[C_QUANT - 1].len - C_WAY[i++].len;
 	if (i < C_QUANT)
 		sum_difference(map, i);
 	return (sum_diff);
 }
 
-static void	distribute_ants(t_map *map)
+static void		distribute_ants(t_map *map)
 {
 	int	sum_diff;
 	int	min_ant;
 	int	remainder;
 	int	i;
-	
+
 	sum_diff = sum_difference(map, 0);
 	min_ant = (map->ants - sum_diff) / C_QUANT;
 	remainder = (map->ants - sum_diff) % C_QUANT;
@@ -45,10 +45,10 @@ static void	distribute_ants(t_map *map)
 	}
 }
 
-static void	print_ant(int ant, char *room, int cycle)
+static void		print_ant(int ant, char *room, int cycle)
 {
 	char	*number;
-	
+
 	if (cycle > 0)
 		write(1, " ", 1);
 	write(1, "L", 1);
@@ -59,7 +59,7 @@ static void	print_ant(int ant, char *room, int cycle)
 	free(number);
 }
 
-static void	show_ants_locations(t_map *map, int wi, int *cycle)
+static void		show_ants_locations(t_map *map, int wi, int *cycle)
 {
 	static int	ant;
 	int			ri;
@@ -84,11 +84,11 @@ static void	show_ants_locations(t_map *map, int wi, int *cycle)
 	}
 }
 
-void		ant_flow(t_map *map)
+void			ant_flow(t_map *map)
 {
 	int	wi;
 	int	cycle;
-	
+
 	make_best_combination(map);
 	distribute_ants(map);
 	wi = -1;

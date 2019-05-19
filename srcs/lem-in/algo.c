@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:03:40 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 16:20:43 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:09:05 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_konnekt(t_list **links, size_t i)
 
 static void	up_way(t_map *map, int l)
 {
-	t_list *combnow;
+	t_list	*combnow;
 
 	combnow = NULL;
 	while (shirina(map) == 1)
@@ -40,10 +40,10 @@ static void	up_way(t_map *map, int l)
 	}
 }
 
-static int up_cutway(t_map *map)
+static int	up_cutway(t_map *map)
 {
-	t_list *combnow;
-	int i;
+	t_list	*combnow;
+	int		i;
 
 	combnow = NULL;
 	i = 0;
@@ -63,9 +63,9 @@ static int up_cutway(t_map *map)
 	return (i);
 }
 
-void	way(t_map *map, int l)
+void		way(t_map *map, int l)
 {
-	int i;
+	int	i;
 
 	map->start.isp = 0;
 	map->start.f = 1;

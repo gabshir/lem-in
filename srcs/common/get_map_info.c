@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/19 02:04:43 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 03:52:17 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ void	quantity_of_ants(t_map *map, char *line, int print)
 		ft_printf(ER "Incorrect number of ants!");
 		exit(1);
 	}
-	else if (print)
-		ft_printf("%s\n", line);
-	if (str)
-		free(str);
+	(print) ? ft_printf("%s\n", line) : 0;
+	(str) ? free(str) : 0;
 	str = NULL;
 }
 
-void start_map_info(t_map *map, char *line, int print)
+void	start_map_info(t_map *map, char *line, int print)
 {
 	while (map->ants == 0 && get_next_line(0, &line) == 1)
 	{
@@ -65,7 +63,7 @@ void	organize_room
 	organize_links(map, line);
 }
 
-int lstadd_room
+int		lstadd_room
 	(e_sort time_to_sort, t_list **room_list, t_map *map, char *line)
 {
 	if (time_to_sort == sorted)
@@ -90,20 +88,15 @@ void	get_map_info(t_map *map, int print)
 	while (get_next_line(0, &line) > 0)
 	{
 		print && ft_printf("%s\n", line);
-		if (!ft_strcmp(line, "##start"))
-			start_init(map, line, print);
-		else if (!ft_strcmp(line, "##end"))
-			end_init(map, line, print);
-		else if (ft_strchr(line, ' ') && ft_strncmp(line, "#", 1))
-		{
-			if (lstadd_room(time_to_sort, &room_list, map, line) == 1)
-				continue ;
-		}
-		else if (ft_strchr(line, '-') && ft_strncmp(line, "#", 1))
-			organize_room(&time_to_sort, map, line, room_list);
+		if (chec_start_finish(map, line, print) == 1)
+			continue ;
+		if (ft_strchr(line, ' ') && ft_strncmp(line, "#", 1)
+			&& (lstadd_room(time_to_sort, &room_list, map, line) == 1))
+			continue ;
+		(ft_strchr(line, '-') && ft_strncmp(line, "#", 1)) ?
+		organize_room(&time_to_sort, map, line, room_list) : 0;
 		free(line);
 		line = NULL;
 	}
-	if (line)
-		free(line);
+	(line) ? free(line) : 0;
 }

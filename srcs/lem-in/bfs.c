@@ -6,16 +6,16 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:47:25 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/15 15:26:11 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:09:05 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_listaddshirina(t_list **up_list, t_room *read)
+void		ft_listaddshirina(t_list **up_list, t_room *read)
 {
-	t_list *temp;
-	t_list *temp2;
+	t_list	*temp;
+	t_list	*temp2;
 	t_room	*readu;
 
 	if (up_list[0] == NULL)
@@ -28,7 +28,7 @@ void	ft_listaddshirina(t_list **up_list, t_room *read)
 		{
 			readu = temp2->content;
 			if (read->n == readu->n)
-				return;
+				return ;
 			temp2 = temp2->next;
 		}
 		temp2->next = ft_lstnew_ptr(read);
@@ -51,7 +51,7 @@ static void	ft_uplistshirina(t_room *room, t_list **up_list)
 	}
 }
 
-static void incmap(t_map *map)
+static void	incmap(t_map *map)
 {
 	map->start.gl = 0;
 	map->start.f = 1;
@@ -59,11 +59,11 @@ static void incmap(t_map *map)
 	map->end.f = 0;
 }
 
-int	shirina(t_map *map)
+int			shirina(t_map *map)
 {
-	t_room *read;
-	t_list *up_list;
-	t_list *obr;
+	t_room	*read;
+	t_list	*up_list;
+	t_list	*obr;
 	int		gl;
 
 	gl = 1;
