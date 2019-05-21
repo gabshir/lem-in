@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:57 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/21 05:25:11 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 05:30:13 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,17 @@ typedef struct	s_map
 	int		fd;
 }				t_map;
 
+typedef struct	s_analiz
+{
+	t_list	*last_combo;
+	t_list	*read_combo;
+	t_list	*way;
+	t_room	*readt;
+	t_room	*reads;
+	t_list	*links;
+	int		f;
+}				t_analiz;
+
 /*
  * get_map_info
  */
@@ -159,6 +170,7 @@ void	organize_room(e_sort *time_to_sort, t_map *map, \
 int		lstadd_room(e_sort time_to_sort, t_list **room_list, \
 		t_map *map, char *line);
 int		check_hash(char *line, char *edge, char *counter_edge);
+int		chec_start_finish(t_map *map, char *line, int print);
 
 /*
 ** ALGORITHM

@@ -6,15 +6,11 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 04:44:02 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 17:58:53 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:10:11 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-/*
-**	bfs && blokway
-*/
 
 t_list	*deque(t_list *que)
 {
@@ -26,14 +22,14 @@ t_list	*deque(t_list *que)
 	return (ptr);
 }
 
-int	finishfree(t_list **obr, t_list **up_list)
+int		finishfree(t_list **obr, t_list **up_list)
 {
 	ft_lstdel(obr, NULL);
 	ft_lstdel(up_list, NULL);
 	return (1);
 }
 
-t_list *fiststart(t_list *start)
+t_list	*fiststart(t_list *start)
 {
 	t_list *temp;
 
@@ -47,7 +43,7 @@ t_list *fiststart(t_list *start)
 	return (temp);
 }
 
-void up_gl(t_list **obr, t_list **up_list, int *gl)
+void	up_gl(t_list **obr, t_list **up_list, int *gl)
 {
 	if (*obr == NULL)
 	{

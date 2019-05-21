@@ -6,13 +6,13 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 14:14:38 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/19 01:39:56 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 03:23:07 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	check_name_duplicates(t_map *map)
+void		check_name_duplicates(t_map *map)
 {
 	size_t	i;
 	size_t	j;
@@ -34,7 +34,7 @@ void	check_name_duplicates(t_map *map)
 	}
 }
 
-void	organize_links(t_map *map, char *line)
+void		organize_links(t_map *map, char *line)
 {
 	char	**split;
 
@@ -44,7 +44,7 @@ void	organize_links(t_map *map, char *line)
 		ft_printf(ER "You've entered excess link info: %s.\n", split[2]);
 		exit(1);
 	}
-	if (split[0]== NULL || split[1] == NULL)
+	if (split[0] == NULL || split[1] == NULL)
 	{
 		ft_printf("error pipes\n");
 		exit(1);
@@ -53,7 +53,7 @@ void	organize_links(t_map *map, char *line)
 	freesplit(split);
 }
 
-t_room	*find_room_by_name(t_map *map, char *r_name,
+t_room		*find_room_by_name(t_map *map, char *r_name,
 		int first, int last)
 {
 	t_room	*ptr;
@@ -77,7 +77,7 @@ t_room	*find_room_by_name(t_map *map, char *r_name,
 	return (ptr);
 }
 
-static void ft_listadd_links(t_room *first, t_room *second)
+static void	ft_listadd_links(t_room *first, t_room *second)
 {
 	if (!check_existing_links(first->links, second->name))
 		ft_lstadd(&first->links, ft_lstnew_ptr((t_room*)second));
@@ -85,7 +85,7 @@ static void ft_listadd_links(t_room *first, t_room *second)
 		ft_lstadd(&second->links, ft_lstnew_ptr((t_room*)first));
 }
 
-void	create_link(t_map *map, char *name_fst, char *name_snd)
+void		create_link(t_map *map, char *name_fst, char *name_snd)
 {
 	t_room	*first;
 	t_room	*second;
@@ -97,7 +97,7 @@ void	create_link(t_map *map, char *name_fst, char *name_snd)
 	else
 		first = find_room_by_name(map, name_fst, 1, ROOM_Q - 1);
 	if (!ft_strcmp(ROOMS[0]->name, name_snd))
-		second = ROOMS[0];	
+		second = ROOMS[0];
 	else if (!ft_strcmp(ROOMS[ROOM_Q - 1]->name, name_snd))
 		second = ROOMS[ROOM_Q - 1];
 	else
@@ -106,9 +106,7 @@ void	create_link(t_map *map, char *name_fst, char *name_snd)
 		ft_listadd_links(first, second);
 	else
 	{
-		if (!first)
-			error_create_links(name_fst);
-		if (!second)
-			error_create_links(name_snd);
+		(!first) ? error_create_links(name_fst) : 0;
+		(!second) ? error_create_links(name_snd) : 0;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gabshire <gabshire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 19:40:19 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:09:05 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	ft_uplistshirinablok(t_room *room, t_list **up_list)
 {
-	t_room *read;
-	t_list *temp;
+	t_room	*read;
+	t_list	*temp;
 
 	temp = room->links;
 	while (temp)
@@ -28,12 +28,12 @@ static void	ft_uplistshirinablok(t_room *room, t_list **up_list)
 	}
 }
 
-int shirinablok(t_map *map)
+int			shirinablok(t_map *map)
 {
-	t_list *start;
-	t_list *up_list;
-	t_room *read;
-	int gl;
+	t_list	*start;
+	t_list	*up_list;
+	t_room	*read;
+	int		gl;
 
 	gl = 1;
 	start = fiststart(map->start.links);

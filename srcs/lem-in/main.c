@@ -6,24 +6,13 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 03:38:24 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/19 02:07:24 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 04:23:39 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	map_initialisation(t_map *map)
-{
-	map->ants = 0;
-	map->start.name = NULL;
-	map->end.name = NULL;
-	map->room_q = 0;
-	map->rooms = NULL;
-	map->way = NULL;
-	map->cut = NULL;
-}
-
-static void	free_comb(t_map *map)
+static void		free_comb(t_map *map)
 {
 	int	i;
 
@@ -33,9 +22,9 @@ static void	free_comb(t_map *map)
 	free(C_WAY);
 }
 
-void	ft_globalfree(t_map *map)
+void			ft_globalfree(t_map *map)
 {
-	size_t  i;
+	size_t	i;
 
 	i = 1;
 	ft_lstdel(&map->start.links, NULL);
@@ -60,11 +49,11 @@ void	ft_globalfree(t_map *map)
 	freeway(&map->way);
 }
 
-int		main(/*int ac, char **av*/void)
+int				main(void)
 {
 	t_map	map;
 
-	map_initialisation(&map);
+	ft_bzero(&map, sizeof(map));
 	get_map_info(&map, 1);
 	if (map.rooms == NULL)
 	{
@@ -79,8 +68,6 @@ int		main(/*int ac, char **av*/void)
 		exit(1);
 	}
 	ant_flow(&map);
-	// if (ac == 2 && !ft_strcmp(av[1], "-v"))
-	// 	visualization(&map);
 	ft_globalfree(&map);
 	return (0);
 }

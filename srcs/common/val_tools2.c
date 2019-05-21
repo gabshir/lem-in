@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:42:52 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/19 03:27:37 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 05:31:46 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list)
 {
 	t_room	**rooms;
 	t_list	*ptr;
-	int	i;
+	int		i;
 
 	if (!(rooms = (t_room**)ft_memalloc(sizeof(t_room*) * (map->room_q + 1))))
 	{
@@ -42,7 +42,7 @@ t_room	**sorted_rooms_ptr_array(t_map *map, t_list **room_list)
 void	put_ptr_in_array(int penultimate, t_room **rooms, t_room *room)
 {
 	int	i;
-	
+
 	i = 1;
 	while (i <= penultimate)
 	{
@@ -79,15 +79,14 @@ int		check_existing_links(t_list *links, char *r_name)
 void	validate_axis(t_room *room, char *splitstr, char axis)
 {
 	char	*str;
-	int f;
+	int		f;
 
 	f = 0;
-	if (splitstr == NULL)
-		f = 1;
+	(splitstr == NULL) ? f = 1 : 0;
 	if (axis == 'X' && f == 0)
 	{
-    	room->x = ft_atoi(splitstr);
-    	str = ft_itoa(room->x);
+		room->x = ft_atoi(splitstr);
+		str = ft_itoa(room->x);
 	}
 	else if (axis == 'Y' && f == 0)
 	{
@@ -102,4 +101,19 @@ void	validate_axis(t_room *room, char *splitstr, char axis)
 		exit(1);
 	}
 	free(str);
+}
+
+int		chec_start_finish(t_map *map, char *line, int print)
+{
+	if (!ft_strcmp(line, "##start"))
+	{
+		start_init(map, line, print);
+		return (1);
+	}
+	if (!ft_strcmp(line, "##end"))
+	{
+		end_init(map, line, print);
+		return (1);
+	}
+	return (0);
 }
