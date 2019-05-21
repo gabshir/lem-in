@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/21 08:33:54 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 08:52:58 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	quantity_of_ants(t_map *map, char *line, int print)
 
 	if (ft_strcmp(line, "##end") == 0 || ft_strcmp(line, "##start") == 0)
 	{
-		ft_printf("ERROR COMAND\n");
+		ft_printf("ERROR COMMAND\n");
 		free(line);
 		exit(1);
 	}
@@ -53,7 +53,7 @@ void	organize_room
 	{
 		if (map->end.name == NULL || map->start.name == NULL)
 		{
-			ft_printf("Start or Finish not found \n");
+			ft_printf(ER "Start or Finish not found \n");
 			exit(1);
 		}
 		map->rooms = sorted_rooms_ptr_array(map, &room_list);
