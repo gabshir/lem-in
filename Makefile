@@ -6,7 +6,7 @@
 #    By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/08 02:27:55 by jwillem-          #+#    #+#              #
-#    Updated: 2019/05/18 20:57:49 by jwillem-         ###   ########.fr        #
+#    Updated: 2019/05/21 05:27:38 by jwillem-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ LEM-FILES = main	algo	tools	bfs	\
 LEM-OBJ = $(addprefix $(OBJDIR)/$(SRC-LEM-DIR),$(addsuffix .o,$(LEM-FILES)))
 
 SRC-VISU-DIR = visu-hex/
-VISU-FILES = visual		test
+VISU-FILES = visual		test	vis_tools	key_hook	draw_map\
+	draw_line
 VISU-OBJ = $(addprefix $(OBJDIR)/$(SRC-VISU-DIR),$(addsuffix .o,$(VISU-FILES)))
 
 SRC-COMMON-DIR = common/

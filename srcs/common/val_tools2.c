@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 17:42:52 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/17 17:44:05 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 03:27:37 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,32 @@ int		check_existing_links(t_list *links, char *r_name)
 		ptr = ptr->next;
 	}
 	return (0);
+}
+
+void	validate_axis(t_room *room, char *splitstr, char axis)
+{
+	char	*str;
+	int f;
+
+	f = 0;
+	if (splitstr == NULL)
+		f = 1;
+	if (axis == 'X' && f == 0)
+	{
+    	room->x = ft_atoi(splitstr);
+    	str = ft_itoa(room->x);
+	}
+	else if (axis == 'Y' && f == 0)
+	{
+		room->y = ft_atoi(splitstr);
+		str = ft_itoa(room->y);
+	}
+	else
+		str = NULL;
+	if (f == 1 || ft_strcmp(splitstr, str) || room->x < 0 || room->y < 0)
+	{
+		ft_printf(ER "Incorrect %c coordinate for room.\n", axis);
+		exit(1);
+	}
+	free(str);
 }

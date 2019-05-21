@@ -6,39 +6,11 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 20:09:44 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/19 02:07:15 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/19 03:27:30 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	validate_axis(t_room *room, char *splitstr, char axis)
-{
-	char	*str;
-	int f;
-
-	f = 0;
-	if (splitstr == NULL)
-		f = 1;
-	if (axis == 'X' && f == 0)
-	{
-    	room->x = ft_atoi(splitstr);
-    	str = ft_itoa(room->x);
-	}
-	else if (axis == 'Y' && f == 0)
-	{
-		room->y = ft_atoi(splitstr);
-		str = ft_itoa(room->y);
-	}
-	else
-		str = NULL;
-	if (f == 1 || ft_strcmp(splitstr, str) || room->x < 0 || room->y < 0)
-	{
-		ft_printf(ER "Incorrect %c coordinate for room.\n", axis);
-		exit(1);
-	}
-	free(str);
-}
 
 void	room_name_and_coords(t_room *room, char *line)
 {
