@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 19:23:43 by gabshire          #+#    #+#             */
-/*   Updated: 2019/05/19 03:52:17 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/21 08:33:54 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	start_map_info(t_map *map, char *line, int print)
 }
 
 void	organize_room
-	(e_sort *time_to_sort, t_map *map, char *line, t_list *room_list)
+	(t_sort *time_to_sort, t_map *map, char *line, t_list *room_list)
 {
 	if (*time_to_sort == not_sorted)
 	{
@@ -64,7 +64,7 @@ void	organize_room
 }
 
 int		lstadd_room
-	(e_sort time_to_sort, t_list **room_list, t_map *map, char *line)
+	(t_sort time_to_sort, t_list **room_list, t_map *map, char *line)
 {
 	if (time_to_sort == sorted)
 	{
@@ -79,13 +79,13 @@ void	get_map_info(t_map *map, int print)
 {
 	char	*line;
 	t_list	*room_list;
-	e_sort	time_to_sort;
+	t_sort	time_to_sort;
 
 	room_list = NULL;
 	line = NULL;
 	time_to_sort = not_sorted;
 	start_map_info(map, line, print);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line) > 0 && ft_strlen(line))
 	{
 		print && ft_printf("%s\n", line);
 		if (chec_start_finish(map, line, print) == 1)
