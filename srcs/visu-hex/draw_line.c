@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 05:27:01 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/21 05:27:26 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 08:38:43 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,41 +28,50 @@ static void	draw_pipe(t_map *map, int prev, int pix)
 			map->mlx.pic.data[prev++] = COMMON;
 }
 
-void		draw_line(t_map *map, size_t i, int curr_center, t_room *linked)
+static void	hypotenuse(t_map *map, size_t i, t_line l, t_room *linked)
 {
-	int	next_center;
-	int	passed;
-	int	pix;
-	int	prev;
+	while (l.curr_center / W_WIDTH != l.next_center / W_WIDTH)
+	{
+		map->mlx.pic.data[l.pix] = COMMON;
+		if (l.passed)
+			draw_pipe(map, l.prev, l.pix);
+		l.curr_center = ROOMS[i]->y < linked->y ? \
+			l.curr_center + W_WIDTH : l.curr_center - W_WIDTH;
+		l.passed++;
+		l.prev = l.pix;
+		if (ROOMS[i]->x < linked->x)
+			l.pix = l.curr_center + ABS(l.passed * \
+				((ROOMS[i]->x - linked->x) * map->mlx.x_len) / \
+				((ROOMS[i]->y - linked->y) * map->mlx.y_len));
+		else
+			l.pix = l.curr_center - ABS(l.passed * \
+				((ROOMS[i]->x - linked->x) * map->mlx.x_len) / \
+				((ROOMS[i]->y - linked->y) * map->mlx.y_len));
+	}
+}
 
-	next_center = W_WIDTH * (INDENT + linked->y * map->mlx.y_len - 1) \
-		+ INDENT + linked->x *  map->mlx.x_len - 1;
-	passed = 0;
-	pix = curr_center;
+void		draw_line(t_map *map, size_t i, int curr_cntr, t_room *linked)
+{
+	t_line	l;
+
+	l.curr_center = curr_cntr;
+	l.next_center = W_WIDTH * (INDENT + linked->y * map->mlx.y_len - 1) \
+		+ INDENT + linked->x * map->mlx.x_len - 1;
+	l.passed = 0;
+	l.pix = curr_cntr;
+	l.i = i;
 	if (ROOMS[i]->x != linked->x && ROOMS[i]->y != linked->y)
-		while (curr_center / W_WIDTH != next_center / W_WIDTH)
-		{
-			map->mlx.pic.data[pix] = COMMON;
-			if (passed)
-				draw_pipe(map, prev, pix);
-			curr_center = ROOMS[i]->y < linked->y ? curr_center + W_WIDTH : curr_center - W_WIDTH;
-			passed++;
-			prev = pix;
-			if (ROOMS[i]->x < linked->x)
-				pix = curr_center + ABS(passed * ((ROOMS[i]->x - linked->x) * map->mlx.x_len) / ((ROOMS[i]->y - linked->y) * map->mlx.y_len));
-			else
-				pix = curr_center - ABS(passed * ((ROOMS[i]->x - linked->x) * map->mlx.x_len) / ((ROOMS[i]->y - linked->y) * map->mlx.y_len));
-		}
+		hypotenuse(map, i, l, linked);
 	else if (ROOMS[i]->x == linked->x && ROOMS[i]->y != linked->y)
-		while (pix != next_center)
+		while (l.pix != l.next_center)
 		{
-			map->mlx.pic.data[pix] = COMMON;
-			pix = ROOMS[i]->y < linked->y ? pix + W_WIDTH : pix - W_WIDTH;
+			map->mlx.pic.data[l.pix] = COMMON;
+			l.pix = ROOMS[i]->y < linked->y ? l.pix + W_WIDTH : l.pix - W_WIDTH;
 		}
 	else if (ROOMS[i]->x != linked->x && ROOMS[i]->y == linked->y)
-		while (pix != next_center)
+		while (l.pix != l.next_center)
 		{
-			map->mlx.pic.data[pix] = COMMON;
-			ROOMS[i]->x < linked->x ? pix++ : pix--;
+			map->mlx.pic.data[l.pix] = COMMON;
+			ROOMS[i]->x < linked->x ? l.pix++ : l.pix--;
 		}
 }

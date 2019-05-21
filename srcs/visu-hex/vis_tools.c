@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 04:55:52 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/21 05:18:23 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 07:25:02 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	draw_one_ant(t_map *map, t_ant *ant, int delta)
 	return (delta < ant->hyp);
 }
 
-int     draw_ants(t_map *map)
+int			draw_ants(t_map *map)
 {
 	int i;
 

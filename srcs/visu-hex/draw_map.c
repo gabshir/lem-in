@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 05:22:53 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/21 05:24:08 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 08:13:28 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	draw_links(t_map *map, size_t i)
 	t_list	*ptr;
 
 	curr_center = W_WIDTH * (INDENT + ROOMS[i]->y * map->mlx.y_len - 1) \
-		+ INDENT + map->rooms[i]->x *  map->mlx.x_len - 1;
+		+ INDENT + map->rooms[i]->x * map->mlx.x_len - 1;
 	ptr = ROOMS[i]->links;
 	while (ptr)
 	{
@@ -71,7 +71,7 @@ static void	draw_links(t_map *map, size_t i)
 
 static void	draw_rooms(t_map *map)
 {
-    size_t	i;
+	size_t	i;
 
 	i = 0;
 	while (map->rooms[i])
@@ -81,14 +81,14 @@ static void	draw_rooms(t_map *map)
 	}
 }
 
-int		    draw_map(t_map *map)
+int			draw_map(t_map *map)
 {
-    int	i;
+	int		i;
 	char	*step;
-	
+
 	i = -1;
 	draw_back(map);
-    draw_rooms(map);
+	draw_rooms(map);
 	step = ft_itoa(map->mlx.step);
 	step = ft_strjoin_free("Step № ", step, 2);
 	mlx_put_image_to_window(map->mlx.mlx_ptr, map->mlx.win, \
@@ -99,7 +99,7 @@ int		    draw_map(t_map *map)
 			ROOMS[i]->y * map->mlx.y_len + INDENT * 3 / 2, \
 			NAME, ROOMS[i]->name);
 	mlx_string_put(map->mlx.mlx_ptr, map->mlx.win, \
-		INDENT, W_HEIGHT - INDENT, NAME, step);
+		INDENT, W_HEIGHT - INDENT, INFO, step);
 	free(step);
 	return (1);
 }

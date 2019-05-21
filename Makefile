@@ -6,7 +6,7 @@
 #    By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/08 02:27:55 by jwillem-          #+#    #+#              #
-#    Updated: 2019/05/21 05:27:38 by jwillem-         ###   ########.fr        #
+#    Updated: 2019/05/21 08:15:00 by jwillem-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,10 @@ SRC-LEM-DIR = lem-in/
 LEM-FILES = main	algo	tools	bfs	\
 	freelinks	ant_flow	blokway	restorroom	\
 	debug	patch_analysis	saveway		combination	
-	#errors	val_tools	val_tools2
 LEM-OBJ = $(addprefix $(OBJDIR)/$(SRC-LEM-DIR),$(addsuffix .o,$(LEM-FILES)))
 
 SRC-VISU-DIR = visu-hex/
-VISU-FILES = visual		test	vis_tools	key_hook	draw_map\
+VISU-FILES = main		vis_tools	key_hook	draw_map\
 	draw_line
 VISU-OBJ = $(addprefix $(OBJDIR)/$(SRC-VISU-DIR),$(addsuffix .o,$(VISU-FILES)))
 
@@ -98,4 +97,4 @@ test-bigs:
 	./generator --big-superposition > test1; ./lem-in < test1
 
 test-big:
-	./generator --big > test1; ./lem-in < test1
+	./generator --big > test1; ./lem-in < test1	

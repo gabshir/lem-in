@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 05:19:07 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/21 05:21:34 by jwillem-         ###   ########.fr       */
+/*   Updated: 2019/05/21 07:24:41 by jwillem-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_ant_name(char *str)
 static void	set_goal_for_ant(t_map *map, t_ant *ant)
 {
 	if (!ft_strcmp(ant->r_curr->name, ROOMS[ROOM_Q - 1]->name))
-			ant->finished = 1;
+		ant->finished = 1;
 	ant->x = ant->x2;
 	ant->y = ant->y2;
 	ant->x2 = ant->r_curr->x * map->mlx.x_len;
@@ -68,16 +68,14 @@ static void	refresh_ants(t_map *map, char **ants)
 	}
 }
 
-int 	    press_space(int key, t_map *map)
+int			press_space(int key, t_map *map)
 {
 	char	*line;
 	char	**ants;
 
-	line = NULL;
-	ants = NULL;
 	if (key == 49)
 	{
-		if (get_next_line(map->fd, &line) > 0)
+		if (get_next_line(0, &line) > 0)
 		{
 			ants = ft_strsplit(line, ' ');
 			draw_map(map);
